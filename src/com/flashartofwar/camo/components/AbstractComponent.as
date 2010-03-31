@@ -44,7 +44,7 @@ package com.flashartofwar.camo.components
     import flash.display.StageAlign;
     import flash.display.StageScaleMode;
 
-    public class AbstractComponent extends CamoDisplay implements IApplyStyleBehavior
+    public class    AbstractComponent extends CamoDisplay implements IApplyStyleBehavior
     {
         protected var styleBehavior:ApplyStyleBehavior;
         protected var styleID:String = "demo";
