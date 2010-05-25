@@ -44,7 +44,7 @@ package com.flashartofwar.camo.components
     import flash.display.StageAlign;
     import flash.display.StageScaleMode;
 
-    public class    AbstractComponent extends CamoDisplay implements IApplyStyleBehavior
+    public class AbstractComponent extends CamoDisplay implements IApplyStyleBehavior
     {
         protected var styleBehavior:ApplyStyleBehavior;
         protected var styleID:String = "demo";
@@ -62,18 +62,18 @@ package com.flashartofwar.camo.components
         public function AbstractComponent(self:AbstractComponent, styleID:String, styleSheet:IStyleSheet, applicator:IApplicator, styleClass:String = "AbstractComponent")
         {
 
-            if (self == this) {
+                if (self == this) {
 
-                this.styleID = styleID
-                this.styleClass = styleClass;
+                    this.styleID = styleID
+                    this.styleClass = styleClass;
 
-                this.styleSheet = styleSheet;
-                this.applicator = applicator;
+                    this.styleSheet = styleSheet;
+                    this.applicator = applicator;
 
-                super();
-            } else {
-                throw new Error("AbstractComponent can not be directly Instantiated");
-            }
+                    super();
+                } else {
+                    throw new Error("AbstractComponent can not be directly Instantiated");
+                }
         }
 
         /**
@@ -139,20 +139,6 @@ package com.flashartofwar.camo.components
             width = w;
             height = h;
         }
-
-        ///////////////////////////////////
-        // event handlers
-        ///////////////////////////////////
-
-        
-        ///////////////////////////////////
-        // getter/setters
-        ///////////////////////////////////
-
-        /**
-         * Sets/gets the width of the component.
-         */
-        
 
         /**
          * Overrides the setter for x to always place the component on a whole pixel.
