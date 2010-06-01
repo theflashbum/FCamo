@@ -26,119 +26,99 @@
  * THE SOFTWARE.
  */
 
-package com.flashartofwar.camo.components
-{
-    import com.flashartofwar.fcss.applicators.IApplicator;
+package com.flashartofwar.camo.components {
+    import com.flashartofwar.camo.display.CamoDisplay;
     import com.flashartofwar.fcss.enum.CSSProperties;
-    import com.flashartofwar.fcss.stylesheets.IStyleSheet;
 
     import flash.text.TextField;
     import flash.text.TextFormat;
 
-    public class Label extends AbstractComponent
-    {
+    public class Label extends CamoDisplay {
         private var _text:String = "";
         private var textField:TextField = new TextField();
         protected var proxyTextFormat:TextFormat = new TextFormat();
         protected var _textAlign:String = CSSProperties.LEFT;
 
-        public function Label(styleID:String, styleSheet:IStyleSheet, applicator:IApplicator, styleClass:String = null, text:String = "")
-        {
+        public function Label(styleID:String, styleClass:String = null, text:String = "") {
             _text = text;
-            super(this, styleID, styleSheet, applicator, styleClass);
+            super(styleID, styleClass);
         }
 
-        public function set autoSize(value:String):void
-        {
+        public function set autoSize(value:String):void {
             textField.autoSize = validateAutoSize(value);
             invalidate();
         }
 
-        public function set antiAliasType(value:String):void
-        {
+        public function set antiAliasType(value:String):void {
             textField.antiAliasType = validateAntiAliasType(value);
             invalidate();
         }
 
-        public function set embedFonts(value:Boolean):void
-        {
+        public function set embedFonts(value:Boolean):void {
             textField.embedFonts = value;
             invalidate();
         }
 
-        public function set sharpness(value:Number):void
-        {
+        public function set sharpness(value:Number):void {
             textField.sharpness = value;
             invalidate();
         }
 
-        public function get text():String
-        {
+        public function get text():String {
             return textField.text;
         }
 
-        public function set text(value:String):void
-        {
+        public function set text(value:String):void {
             textField.text = value;
             invalidate();
         }
 
-        public function set textAlign(value:String):void
-        {
+        public function set textAlign(value:String):void {
             _textAlign = value;
             invalidate();
         }
 
-        public function set textFieldWidth(value:Number):void
-        {
+        public function set textFieldWidth(value:Number):void {
             textField.width = value;
             invalidate();
         }
 
-        public function set textFieldHeight(value:Number):void
-        {
+        public function set textFieldHeight(value:Number):void {
             textField.height = value;
             invalidate();
         }
 
-        public function set textFieldAlign(value:String):void
-        {
+        public function set textFieldAlign(value:String):void {
             proxyTextFormat.align = value;
             invalidate();
         }
 
-        public function set fontFace(value:String):void
-        {
+        public function set fontFace(value:String):void {
             font = value;
             invalidate();
         }
 
-        public function set fontSize(value:Number):void
-        {
+        public function set fontSize(value:Number):void {
             size = value;
             invalidate();
         }
 
-        public function set font(value:String):void
-        {
+        public function set font(value:String):void {
             proxyTextFormat.font = value;
             invalidate();
         }
 
-        public function set color(value:uint):void
-        {
+        public function set color(value:uint):void {
             proxyTextFormat.color = value;
             invalidate();
         }
 
-        public function set size(value:Number):void
-        {
+        public function set size(value:Number):void {
             proxyTextFormat.size = value;
             invalidate();
         }
 
-        public function set letterSpacing(value:Number):void
-        {
+        public function set letterSpacing(value:Number):void {
             proxyTextFormat.letterSpacing = value;
             invalidate();
         }
@@ -146,8 +126,7 @@ package com.flashartofwar.camo.components
         /**
          * Initializes the component.
          */
-        override protected function init():void
-        {
+        override protected function init():void {
             super.init();
             mouseEnabled = false;
             mouseChildren = false;
@@ -156,8 +135,7 @@ package com.flashartofwar.camo.components
         /**
          * Creates and adds the child display objects of this component.
          */
-        override protected function addChildren():void
-        {
+        override protected function addChildren():void {
             textField.embedFonts = false;
             textField.selectable = false;
             textField.mouseEnabled = false;
@@ -170,8 +148,7 @@ package com.flashartofwar.camo.components
         /**
          * Draws the visual ui of the component.
          */
-        override protected function draw():void
-        {
+        override protected function draw():void {
             proxyTextFormat.align = _textAlign;
             textField.defaultTextFormat = proxyTextFormat;
             textField.setTextFormat(proxyTextFormat);
@@ -181,8 +158,7 @@ package com.flashartofwar.camo.components
         /**
          * Gets / sets the text of this Label.
          */
-        public static function validateAntiAliasType(value:String):String
-        {
+        public static function validateAntiAliasType(value:String):String {
             if (value == CSSProperties.ADVANCED) {
                 return value;
             } else {
@@ -190,8 +166,7 @@ package com.flashartofwar.camo.components
             }
         }
 
-        public static function validateAutoSize(value:String):String
-        {
+        public static function validateAutoSize(value:String):String {
             if (value == CSSProperties.LEFT || value == CSSProperties.RIGHT || value == CSSProperties.CENTER) {
                 return value;
             } else {

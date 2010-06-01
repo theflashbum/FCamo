@@ -1,6 +1,7 @@
 /**
  * <p>Original Author:  jessefreeman</p>
- * <p>Class File: BitmapLoaderManager.as</p>
+ * <p>Based on a SingletonManger class by Justin Akin</p>
+ * <p>Class File: SingletonManager.as</p>
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,35 +25,52 @@
  * <p>Redistributions of files must retain the above copyright notice.</p>
  *
  * <p>Revisions<br/>
- *     2.0  Initial version Jan 7, 2009</p>
+ *        1.0.0  Initial version Feb 11, 2010</p>
  *
  */
 
 package com.flashartofwar.camo.managers {
-    import flash.display.Bitmap;
-    import flash.display.BitmapData;
-    import flash.display.Loader;
+    import flash.utils.Dictionary;
 
-    public class BitmapLoaderManager extends LoaderManager {
+    public class SingletonManager {
+        private static var _instance:SingletonManager;
+
+        private var singletons:Dictionary = new Dictionary();
+
         /**
-         *
-         *
+         * @param enforcer
          */
-        public function BitmapLoaderManager() {
-            super();
+        public function SingletonManager(enforcer:SingletonEnforcer) {
+            if (enforcer == null) throw new Error("Error: Instantiation failed: Use SingletonManager.instance instead.");
+        }
+
+        public static function getClassReference(classReference:Class):* {
+            return instance.getClassReference(classReference);
+        }
+
+        public function getClassReference(classReference:Class):* {
+            var singleton:* = singletons[ classReference ];
+
+            if (!singleton) {
+                singleton = new classReference();
+                singletons[ classReference ] = singleton;
+            }
+
+            return singleton;
         }
 
         /**
-         *
-         * @param loader
          * @return
-         *
          */
-        override protected function registerLoader(id:String, loader:Loader):void {
-            var bmd:BitmapData = Bitmap(loader.content).bitmapData.clone();
-            var bitmap:Bitmap = new Bitmap(bmd);
+        private static function get instance():SingletonManager {
+            if (!_instance) {
+                _instance = new SingletonManager(new SingletonEnforcer());
+            }
 
-            loadedReference[id] = bitmap;
+            return _instance;
         }
     }
+}
+
+internal class SingletonEnforcer {
 }
