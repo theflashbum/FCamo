@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="FlashTDDProject" basedir="." default="local-test">
+<project name="FlashTDDProject" basedir="." default="compile-swc">
     <!-- This is 60% ripped off from RobotLegs - http://github.com/darscan/robotlegs-bluelego.
 I am working on making my own but this one is so damn good I couldn't help myself. -->
 
@@ -14,12 +14,9 @@ I am working on making my own but this one is so damn good I couldn't help mysel
         <echo message="${project.name} Build Usage"/>
         <echo message="-----------------------------------"/>
         <echo message="Main targets are:"/>
-        <echo message="local-test    --> Build ${project.name} Launch, SWF, asdoc and test"/>
         <echo message="compile-swc   --> Build ${project.name} SWC, asdoc, test"/>
-        <echo message="compile-swf   --> Build ${project.name} SWF"/>
         <echo message=""/>
         <echo message="Additonal targets are:"/>
-        <echo message="setup-bin     --> Build ${project.name} test, asdocs, setups up bin"/>
         <echo message="asdoc         --> Build ${project.name} test and generate asdocs"/>
         <echo message="test          --> Build ${project.name} runs unit tests"/>
         <echo message="clean         --> Remove all folders created by build script"/>
@@ -140,35 +137,6 @@ I am working on making my own but this one is so damn good I couldn't help mysel
             <replacefilter token="@version_minor@" property="version_minor"/>
             <replacefilter token="@version_revision@" property="version_revision"/>
         </replace>
-    </target>
-
-    <!-- Compile Release SWF -->
-    <target name="compile-swf" depends="setup-bin">
-        <echo>[compile] Compiling SWF</echo>
-        <echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
-
-        <java jar="${FLEX_HOME}/lib/mxmlc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
-            <arg value="${main.src.loc}/${project.name}.as"/>
-            <arg value="-source-path=${main.src.loc}"/>
-
-            <arg value="-output=${bin.loc}/swfs/${project.name.versioned}.swf"/>
-            <arg value="-static-link-runtime-shared-libraries=true"/>
-            <!-- Include classes from SWCs in this folder, but only the ones we use. -->
-            <arg value="-library-path+=${lib.loc}"/>
-
-            <arg value="-incremental=true"/>
-            <arg value="-debug=true"/>
-            <arg value="-verbose-stacktraces=true"/>
-            <arg value="-headless-server=true"/>
-        </java>
-
-        <echo>[compile] Debug SWF ${project.name.versioned}.swf created successfully</echo>
-    </target>
-
-    <target name="local-test" depends="compile-swf" if="autolaunch.url">
-        <exec executable="open">
-            <arg line="-a ${browser} ${bin.loc}/index.html"/>
-        </exec>
     </target>
 
     <!-- Compile Release SWC -->
