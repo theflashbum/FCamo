@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="FlashTDDProject" basedir="." default="compile-swc">
+<project name="FlashCamouflage3" basedir="." default="compile-swc">
     <!-- This is 60% ripped off from RobotLegs - http://github.com/darscan/robotlegs-bluelego.
 I am working on making my own but this one is so damn good I couldn't help myself. -->
 
@@ -7,7 +7,7 @@ I am working on making my own but this one is so damn good I couldn't help mysel
     <property file="build.properties"/>
 
     <!-- Set up FlexUnit Ant tasks -->
-    <taskdef resource="flexUnitTasks.tasks" classpath="${lib.loc}/flexUnitTasks.jar"/>
+    <taskdef resource="flexUnitTasks.tasks" classpath="build/libs-flexunit/flexUnitTasks.jar"/>
 
     <target name="usage">
         <echo message=""/>
@@ -37,9 +37,6 @@ I am working on making my own but this one is so damn good I couldn't help mysel
         <echo>[clean] Removing Build and Report directories</echo>
         <delete includeemptydirs="true" failonerror="false">
             <fileset dir="${report.loc}" defaultexcludes="false">
-                <include name="**/*"/>
-            </fileset>
-            <fileset dir="${dist.loc}" defaultexcludes="false">
                 <include name="**/*"/>
             </fileset>
         </delete>
@@ -120,31 +117,12 @@ I am working on making my own but this one is so damn good I couldn't help mysel
         <echo>[create-docs] ASDOC documentation generated successfully</echo>
     </target>
 
-    <target name="setup-bin" depends="asdoc">
-
-        <sync todir="${bin.loc}">
-            <fileset dir="${basedir}/build/bin-resources"/>
-        </sync>
-
-        <copy file="${basedir}/build/html-template/index.template.html" tofile="${bin.loc}/index.html"/>
-
-        <replace file="${bin.loc}/index.html" propertyFile="${basedir}/build/html-template/html.properties">
-            <replacefilter token="@width@" property="width"/>
-            <replacefilter token="@height@" property="height"/>
-            <replacefilter token="@example@" value="${project.name.versioned}"/>
-            <replacefilter token="@version_major@" property="version_major"/>
-            <replacefilter token="@version_minor@" property="version_minor"/>
-            <replacefilter token="@version_minor@" property="version_minor"/>
-            <replacefilter token="@version_revision@" property="version_revision"/>
-        </replace>
-    </target>
-
     <!-- Compile Release SWC -->
     <target name="compile-swc" depends="asdoc">
         <echo>[compile] Compiling release SWC</echo>
         <echo>[compile] Using Flex SDK at: ${FLEX_HOME}</echo>
 
-        <java jar="${FLEX_HOME}/lib/compc.jar" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
+        <java jar="${FLEX_HOME}/lib/compc.jar" maxmemory="512m" dir="${FLEX_HOME}/frameworks" fork="true" failonerror="true">
             <!-- Build our SWC with a versioned name. -->
             <arg value="-output=${bin.loc}/${project.name.versioned}.swc"/>
 
@@ -162,9 +140,40 @@ I am working on making my own but this one is so damn good I couldn't help mysel
             <arg value="-static-link-runtime-shared-libraries=true"/>
             <arg value="-verbose-stacktraces=true"/>
             <arg value="-headless-server=true"/>
+            <arg value="-include-libraries+=${lib.loc}"/>
         </java>
 
         <echo>[compile] Release SWC ${project.name.versioned}.swc created successfully</echo>
     </target>
 
+
+    <target name="convert-swc-to-swf">
+        <sequential>
+        <unzip src="${bin.loc}/${project.name.versioned}.swc"
+                 dest="${bin.loc}" >
+              <patternset>
+                      <include name="library.swf" />
+              </patternset>
+       </unzip>
+
+       <move file="${bin.loc}/library.swf" tofile="${bin.loc}/${project.name.versioned}.swf"/>
+
+       <antcall target="optimize-swf-lib"/>
+       <antcall target="deploy-swf-lib"/>
+
+       <delete file="${bin.loc}/library.swf"/>
+       </sequential>
+    </target>
+
+    <target name="optimize-swf-lib" if="run.swflib.otimize">
+        <java jar="${FLEX_HOME}/lib/optimizer.jar" fork="true" failonerror="true">
+              <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${FLEX_HOME}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+              <arg line="'${bin.loc}/${project.name.versioned}.swf' --output '${bin.loc}/${deploy.name.versioned}.swf' "/>
+       </java>
+    </target>
+
+    <target name="deploy-swf-lib" if="run.swflib.deploy">
+        <move file="${bin.loc}/${project.name.versioned}.swf" tofile="${lib.deploy.dir}/${deploy.name.versioned}.swf"/>
+    </target>
+    
 </project>
