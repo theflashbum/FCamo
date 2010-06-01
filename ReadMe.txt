@@ -9,9 +9,9 @@ I'll assume you have the project downloaded by now. Flash Camo relise
 on several other libraries to run. Their swcs can be found in the
 build/libs folder. Here is what is included:
 
-- F*CSS Ð http://github.com/theflashbum/fcss
-- F*BoxModel Ð http://github.com/theflashbum/FBoxModel
-- F*SpriteSheet Ð http://github.com/theflashbum/FSpriteSheet
+- F*CSS http://github.com/theflashbum/fcss
+- F*BoxModel http://github.com/theflashbum/FBoxModel
+- F*SpriteSheet http://github.com/theflashbum/FSpriteSheet
 
 Once you have your IDE pointed to the build/libs folder you should be able
 to compile Flash Camo. There is also an Ant build which is helpful to quickly
@@ -37,3 +37,4 @@ compile-swc and this will generate a swc in the build folder. This swc will
 include all 3 libraries by default.
 
 Read the Wiki ( http://wiki.github.com/theflashbum/FCamo ) for more info on Flash Camo v3. 
+
