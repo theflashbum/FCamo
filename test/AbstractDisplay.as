@@ -1,4 +1,4 @@
-package com.flashartofwar.camo.display {
+package {
     import flash.display.Sprite;
     import flash.events.Event;
 
