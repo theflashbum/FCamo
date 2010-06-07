@@ -19,3 +19,5 @@ file).
 
 Once the bin folder is setup, the browser will attempt to launch the index.html
 file and let you preview your swf.
+
+More info coming soon.
