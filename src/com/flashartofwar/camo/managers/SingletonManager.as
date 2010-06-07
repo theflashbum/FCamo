@@ -31,7 +31,8 @@
 
 package com.flashartofwar.camo.managers {
     import flash.utils.Dictionary;
-
+    import mx.core.BitmapAsset;
+    
     public class SingletonManager {
         private static var _instance:SingletonManager;
 
