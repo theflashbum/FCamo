@@ -47,6 +47,7 @@ package com.flashartofwar.camo.display {
             super.init();
         }
 
+
         override protected function createRenderer():BoxModelRenderer
         {
             advancedBoxModelRenderer = new AdvancedBoxModelRenderer(_display, graphics, maskShape);
@@ -64,8 +65,6 @@ package com.flashartofwar.camo.display {
         }
 
         /**
-         *
-         * @return
          *
          */
         public function get cursor():String
@@ -85,8 +84,6 @@ package com.flashartofwar.camo.display {
 
         /**
          *
-         * @return
-         *
          */
         public function get verticalAlign():String
         {
@@ -105,7 +102,7 @@ package com.flashartofwar.camo.display {
 
         /**
          *
-         * @return
+
          *
          */
         public function get align():String
@@ -214,7 +211,7 @@ package com.flashartofwar.camo.display {
         /**
          *
          * @param bitmapData
-         * @return
+
          *
          */
         //              override protected function createBackgroundBitmap(bitmapData:BitmapData):Bitmap
@@ -302,7 +299,7 @@ package com.flashartofwar.camo.display {
         /**
          *      <p>Checks to see if the child has a zIndex before adding to the display.</p>
          * @param child
-         * @return
+
          *
          */
         override public function addChild(child:DisplayObject):DisplayObject
@@ -322,7 +319,7 @@ package com.flashartofwar.camo.display {
         /**
          *
          * @param value
-         * @return
+
          *
          */
         protected function validateZIndex(value:Number):Number
@@ -334,7 +331,7 @@ package com.flashartofwar.camo.display {
         /**
          * @private
          * @param value
-         * @return
+
          *
          */
         protected function validateVerticalAlign(value:String):String
@@ -349,7 +346,7 @@ package com.flashartofwar.camo.display {
         /**
          *
          * @param value
-         * @return
+
          *
          */
         protected function validateAlign(value:String):String

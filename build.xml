@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="FlashTDDProject" basedir="." default="local-test">
-	<!-- This is 60% ripped off from RobotLegs - http://github.com/darscan/robotlegs-framework.
+	<!-- This is 60% ripped off from RobotLegs - http://github.com/darscan/robotlegs-bluelego.
    I am working on making my own but this one is so damn good I couldn't help myself. -->
 
 	<!-- identify properties file -->
