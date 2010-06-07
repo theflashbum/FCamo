@@ -1,14 +1,12 @@
-package  
-{
-	import com.flashartofwar.flashtdd.FlashTDDProjectTest;
+package {
+    import com.flashartofwar.flashtdd.FlashTDDProjectTest;
 
-	[Suite]
+    [Suite]
 
-	[RunWith("org.flexunit.runners.Suite")]
+    [RunWith("org.flexunit.runners.Suite")]
 
-	public class FlashTDDProjectTestSuite 
-	{
+    public class FlashTDDProjectTestSuite {
 
-		public var test1 : FlashTDDProjectTest;
-	}
+        public var test1:FlashTDDProjectTest;
+    }
 }

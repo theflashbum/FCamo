@@ -1,13 +1,11 @@
-package com.flashartofwar.camo.display {
+package {
     import flash.display.Sprite;
     import flash.events.Event;
 
-    public class AbstractDisplay extends Sprite
-    {
+    public class AbstractDisplay extends Sprite {
         private const DRAW:String = "draw";
-        
-        public function AbstractDisplay(self:AbstractDisplay)
-        {
+
+        public function AbstractDisplay(self:AbstractDisplay) {
             if (self == this) {
                 super();
             } else {
@@ -16,27 +14,24 @@ package com.flashartofwar.camo.display {
         }
 
         /**
-         * 
+         *
          */
-        protected function draw():void
-        {
+        protected function draw():void {
             dispatchEvent(new Event(DRAW));
         }
 
         /**
          *
          */
-        protected function render():void
-        {
+        protected function render():void {
 
         }
 
         /**
          * Forces a redraw of the component.
          */
-        public function drawNow():void
-        {
-            render();    
+        public function drawNow():void {
+            render();
         }
 
     }

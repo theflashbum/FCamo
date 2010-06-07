@@ -1,9 +1,5 @@
 package com.flashartofwar.camo.behaviors {
-    import com.flashartofwar.fcss.behaviors.IApplyStyleBehavior;
-
-    import flash.events.IEventDispatcher;
     import flash.events.MouseEvent;
-    import flash.ui.Mouse;
 
     public class ChangeStyleBehavior {
 
@@ -12,7 +8,7 @@ package com.flashartofwar.camo.behaviors {
         private const OVER:String = "over";
 
         public function ChangeStyleBehavior(target:*, activate:Boolean = true) {
-            this.target= target;
+            this.target = target;
             this.activate = activate;
             init();
         }
@@ -23,12 +19,10 @@ package com.flashartofwar.camo.behaviors {
 
         public function set activate(activate:Boolean):void {
             _activate = activate;
-            if(_activate)
-            {
+            if (_activate) {
                 addEventListeners();
             }
-            else
-            {
+            else {
                 removeEventListeners();
             }
         }
@@ -41,7 +35,7 @@ package com.flashartofwar.camo.behaviors {
         private function onRollOver(event:MouseEvent):void {
             _target.applyDefaultStyle(OVER);
         }
-        
+
         private function onRollOut(event:MouseEvent):void {
             _target.applyDefaultStyle()
         }
@@ -51,14 +45,14 @@ package com.flashartofwar.camo.behaviors {
             _target.removeEventListener(MouseEvent.ROLL_OVER, onRollOver);
             _target.removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
         }
-        
+
         public function get activate():Boolean {
             return _activate;
         }
 
         public function set target(value:*):void {
             _target = value;
-            
+
         }
     }
 }

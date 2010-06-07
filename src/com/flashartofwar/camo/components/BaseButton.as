@@ -1,24 +1,21 @@
 package com.flashartofwar.camo.components {
     import com.flashartofwar.camo.behaviors.ChangeStyleBehavior;
-    import com.flashartofwar.fcss.applicators.IApplicator;
-    import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+    import com.flashartofwar.camo.display.CamoDisplay;
 
-    public class BaseButton extends AbstractComponent {
+    public class BaseButton extends CamoDisplay {
         private var buttonBehavior:ChangeStyleBehavior;
 
-        public function BaseButton(styleID:String, styleSheet:IStyleSheet, applicator:IApplicator, styleClass:String = null)
-        {
-            super(this, styleID, styleSheet, applicator, styleClass);
+        public function BaseButton(styleID:String, styleClass:String = null) {
+            super(styleID, styleClass);
         }
 
-        override protected function init():void
-        {
+        override protected function init():void {
             super.init();
             addButtonBehavior();
         }
 
         private function addButtonBehavior():void {
-             buttonBehavior = new ChangeStyleBehavior(this);
+            buttonBehavior = new ChangeStyleBehavior(this);
         }
     }
 }

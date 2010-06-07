@@ -8,6 +8,7 @@
 /doc/*
 /report/*
 /dist/*
+/trash/*
  
 /.actionScriptProperties
 /.flexProperties
