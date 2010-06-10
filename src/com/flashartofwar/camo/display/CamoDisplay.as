@@ -37,7 +37,7 @@ package com.flashartofwar.camo.display {
         protected var advancedBoxModelRenderer:AdvancedBoxModelRenderer;
         protected var styleBehavior:ApplyStyleBehavior;
         protected var styleID:String = "";
-        protected var styleSheet:IStyleSheet = SingletonManager.getClassReference(StyleSheetCollection);
+        protected var styleSheetCollection:IStyleSheet = SingletonManager.getClassReference(StyleSheetCollection);
         protected var applicator:IApplicator = SingletonManager.getClassReference(StyleApplicator);
         protected var styleClass:String;
 
@@ -50,7 +50,7 @@ package com.flashartofwar.camo.display {
             this.styleID = styleID;
             this.styleClass = styleClass;
 
-            this.styleSheet = styleSheet;
+            this.styleSheetCollection = styleSheetCollection;
             this.applicator = applicator;
 
             super();
@@ -65,7 +65,7 @@ package com.flashartofwar.camo.display {
         }
 
         protected function addStyleBehavior():void {
-            styleBehavior = new ApplyStyleBehavior(this, applicator, styleSheet, styleID);
+            styleBehavior = new ApplyStyleBehavior(this, applicator, styleSheetCollection, styleID);
         }
 
         /**

@@ -17,11 +17,12 @@
         [Embed(source="../build/assets/logo.png")]
         private var Logo:Class;
 
-        private function onCreationComplete():void {
+        private function onCreationComplete():void
+        {
             core = new FlexUnitCore();
             core.addListener(new CIListener());
             core.addListener(new TraceListener());
-            core.run(FlashTDDProjectTestSuite);
+            core.run(FlashCamouflageTestSuite);
         }
 		]]>
 	</mx:Script>
