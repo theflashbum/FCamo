@@ -1,5 +1,5 @@
-package com.flashartofwar.camo.layout {
-    import com.flashartofwar.camo.display.CamoDisplay;
+package com.flashartofwar.camo.layout
+{
     import com.flashartofwar.fboxmodel.FBoxModel;
     import com.flashartofwar.fcss.enum.CSSProperties;
 
@@ -7,7 +7,8 @@ package com.flashartofwar.camo.layout {
     import flash.display.DisplayObjectContainer;
     import flash.events.Event;
 
-    public class StackLayout extends AbstractLayout {
+    public class StackLayout extends AbstractLayout
+    {
 
         public static const VERTICAL:String = "y";
         public static const HORIZONTAL:String = "x";
@@ -20,8 +21,10 @@ package com.flashartofwar.camo.layout {
         private var marginSideA:String;
         private var marginSideB:String;
 
-        protected function set direction(value:String):void {
-            switch (value) {
+        protected function set direction(value:String):void
+        {
+            switch (value)
+            {
                 case VERTICAL:
                     dirProp = VERTICAL;
                     sizeProp = HEIGHT;
@@ -40,28 +43,33 @@ package com.flashartofwar.camo.layout {
             invalidate();
         }
 
-        public function StackLayout(styleID:String, styleClass:String = "StackLayout", direction:String = VERTICAL) {
+        public function StackLayout(styleID:String, styleClass:String = "StackLayout", direction:String = VERTICAL)
+        {
             super(this, styleID, styleClass);
             this.direction = direction;
         }
 
-        override protected function init():void {
+        override protected function init():void
+        {
             addEventListener(FBoxModel.DRAW, onBoxModelDraw);
             super.init();
         }
 
-        private function onBoxModelDraw(event:Event):void {
+        private function onBoxModelDraw(event:Event):void
+        {
             invalidate();
         }
 
-        override public function layout(target:DisplayObjectContainer):void {
+        override public function layout(target:DisplayObjectContainer):void
+        {
 
             var total:int = target.numChildren;
             var i:int;
             var nextCoord:Number = 0;
             var child:DisplayObject;
 
-            for (i = 0; i < total; i ++) {
+            for (i = 0; i < total; i ++)
+            {
                 child = target.getChildAt(i);
 
                 child[dirProp] = nextCoord;
@@ -70,7 +78,8 @@ package com.flashartofwar.camo.layout {
             }
         }
 
-        override protected function draw():void {
+        override protected function draw():void
+        {
             measure(display);
             layout(display);
             super.draw();

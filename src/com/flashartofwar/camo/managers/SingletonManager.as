@@ -29,11 +29,12 @@
  *
  */
 
-package com.flashartofwar.camo.managers {
+package com.flashartofwar.camo.managers
+{
     import flash.utils.Dictionary;
-    import mx.core.BitmapAsset;
-    
-    public class SingletonManager {
+
+    public class SingletonManager
+    {
         private static var _instance:SingletonManager;
 
         private var singletons:Dictionary = new Dictionary();
@@ -41,18 +42,22 @@ package com.flashartofwar.camo.managers {
         /**
          * @param enforcer
          */
-        public function SingletonManager(enforcer:SingletonEnforcer) {
+        public function SingletonManager(enforcer:SingletonEnforcer)
+        {
             if (enforcer == null) throw new Error("Error: Instantiation failed: Use SingletonManager.instance instead.");
         }
 
-        public static function getClassReference(classReference:Class):* {
+        public static function getClassReference(classReference:Class):*
+        {
             return instance.getClassReference(classReference);
         }
 
-        public function getClassReference(classReference:Class):* {
+        public function getClassReference(classReference:Class):*
+        {
             var singleton:* = singletons[ classReference ];
 
-            if (!singleton) {
+            if (!singleton)
+            {
                 singleton = new classReference();
                 singletons[ classReference ] = singleton;
             }
@@ -63,8 +68,10 @@ package com.flashartofwar.camo.managers {
         /**
          * @return
          */
-        private static function get instance():SingletonManager {
-            if (!_instance) {
+        private static function get instance():SingletonManager
+        {
+            if (!_instance)
+            {
                 _instance = new SingletonManager(new SingletonEnforcer());
             }
 
@@ -73,5 +80,6 @@ package com.flashartofwar.camo.managers {
     }
 }
 
-internal class SingletonEnforcer {
+internal class SingletonEnforcer
+{
 }

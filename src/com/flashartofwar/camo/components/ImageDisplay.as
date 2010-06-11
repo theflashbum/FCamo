@@ -1,4 +1,5 @@
-package com.flashartofwar.camo.components {
+package com.flashartofwar.camo.components
+{
     import com.flashartofwar.camo.display.CamoDisplay;
 
     import flash.display.Bitmap;
@@ -9,77 +10,92 @@ package com.flashartofwar.camo.components {
     import flash.events.SecurityErrorEvent;
     import flash.net.URLRequest;
 
-    public class ImageDisplay extends CamoDisplay {
+    public class ImageDisplay extends CamoDisplay
+    {
         protected var loader:Loader = new Loader();
         protected var image:Bitmap;
         protected var _keepAspect:Boolean = true;
         protected var _width:Number;
         protected var _height:Number;
 
-        public function ImageDisplay(styleID:String, styleClass:String = "ImageDisplay") {
+        public function ImageDisplay(styleID:String, styleClass:String = "ImageDisplay")
+        {
             super(styleID, styleClass);
         }
 
-        override public function get width():Number {
+        override public function get width():Number
+        {
             return _width;
         }
 
-        override public function set width(value:Number):void {
+        override public function set width(value:Number):void
+        {
             _width = value;
         }
 
-        override public function get height():Number {
+        override public function get height():Number
+        {
             return _height;
         }
 
-        override public function set height(value:Number):void {
+        override public function set height(value:Number):void
+        {
             _height = value;
         }
 
-        public function set src(url:String):void {
+        public function set src(url:String):void
+        {
             addEventListeners(loader.contentLoaderInfo);
             loader.load(new URLRequest(url));
         }
 
 
-        public function resize(w:Number, h:Number, keepAspect:Boolean = true):void {
+        public function resize(w:Number, h:Number, keepAspect:Boolean = true):void
+        {
             _width = w;
             _height = h;
             _keepAspect = keepAspect;
             resizeImage(image);
         }
 
-        override protected function init():void {
+        override protected function init():void
+        {
             super.init();
         }
 
-        protected function addEventListeners(target:LoaderInfo):void {
+        protected function addEventListeners(target:LoaderInfo):void
+        {
             target.addEventListener(Event.COMPLETE, onLoad);
             target.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
             target.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
         }
 
-        protected function removeEventListeners(target:LoaderInfo):void {
+        protected function removeEventListeners(target:LoaderInfo):void
+        {
             target.removeEventListener(Event.COMPLETE, onLoad);
             target.removeEventListener(IOErrorEvent.IO_ERROR, onIOError);
             target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
         }
 
-        protected function onSecurityError(event:SecurityErrorEvent):void {
+        protected function onSecurityError(event:SecurityErrorEvent):void
+        {
             // Errors are bad
         }
 
-        protected function onIOError(event:IOErrorEvent):void {
+        protected function onIOError(event:IOErrorEvent):void
+        {
             // Errors are bad
         }
 
-        protected function onLoad(event:Event):void {
+        protected function onLoad(event:Event):void
+        {
             removeEventListeners(LoaderInfo(event.target));
             displayBitmap(Bitmap(event.target.content));
             dispatchEvent(event.clone());
         }
 
-        protected function displayBitmap(image:Bitmap):void {
+        protected function displayBitmap(image:Bitmap):void
+        {
             this.image = image;
             if (isNaN(_width))
                 _width = image.width;
@@ -94,8 +110,10 @@ package com.flashartofwar.camo.components {
             addChild(image);
         }
 
-        private function resizeImage(target:Bitmap):void {
-            if (_keepAspect) {
+        private function resizeImage(target:Bitmap):void
+        {
+            if (_keepAspect)
+            {
 
                 var targetWidth:Number = target.width;
                 var targetHeight:Number = target.height;
@@ -107,11 +125,14 @@ package com.flashartofwar.camo.components {
 
                 var si:Number;
                 //
-                if (sw > sh) {
+                if (sw > sh)
+                {
                     si = sw / tw;
                     if (th * si > sh)
                         si = sh / th;
-                } else {
+                }
+                else
+                {
                     si = sh / th;
                     if (tw * si > sw)
                         si = sw / tw;
@@ -122,13 +143,16 @@ package com.flashartofwar.camo.components {
 
                 target.width = wn;
                 target.height = hn;
-            } else {
+            }
+            else
+            {
                 target.width = _width;
                 target.height = _height;
             }
         }
 
-        public function clear():void {
+        public function clear():void
+        {
 
         }
     }

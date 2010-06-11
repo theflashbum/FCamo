@@ -26,7 +26,8 @@
  * THE SOFTWARE.
  */
 
-package com.flashartofwar.camo.components {
+package com.flashartofwar.camo.components
+{
     import com.flashartofwar.camo.display.CamoDisplay;
     import com.flashartofwar.fcss.enum.CSSProperties;
 
@@ -36,7 +37,8 @@ package com.flashartofwar.camo.components {
     import flash.text.TextFormat;
     import flash.text.TextLineMetrics;
 
-    public class Label extends CamoDisplay {
+    public class Label extends CamoDisplay
+    {
 
         protected var _styleSheet:StyleSheet;
         protected var textField:TextField = new TextField();

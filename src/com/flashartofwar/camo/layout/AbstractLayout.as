@@ -1,28 +1,35 @@
-package com.flashartofwar.camo.layout {
+package com.flashartofwar.camo.layout
+{
     import com.flashartofwar.camo.display.CamoDisplay;
 
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
     import flash.geom.Point;
 
-    public class AbstractLayout extends CamoDisplay implements ILayout {
+    public class AbstractLayout extends CamoDisplay implements ILayout
+    {
 
         protected var maxWidth:Number = 0;
         protected var maxHeight:Number = 0;
 
         protected var internalPoint:Point = new Point();
 
-        public function AbstractLayout(self:AbstractLayout, styleID:String, styleClass:String = "CamoDisplay") {
+        public function AbstractLayout(self:AbstractLayout, styleID:String, styleClass:String = "CamoDisplay")
+        {
 
-            if (self == this) {
+            if (self == this)
+            {
                 super(styleID, styleClass);
-            } else {
+            }
+            else
+            {
                 throw new Error("AbstractDisplay can not be directly Instantiated");
             }
 
         }
 
-        public function measure(target:DisplayObjectContainer):void {
+        public function measure(target:DisplayObjectContainer):void
+        {
 
             if (!target) target = display;
 
@@ -32,14 +39,16 @@ package com.flashartofwar.camo.layout {
             var tempW:Number = 0;
             var tempH:Number = 0;
 
-            for (i = 0; i < total; ++i) {
+            for (i = 0; i < total; ++i)
+            {
                 child = display.getChildAt(i);
 
                 tempW = child.width;
                 tempH = child.height;
 
 
-                if (child is CamoDisplay) {
+                if (child is CamoDisplay)
+                {
                     tempW += CamoDisplay(child).marginLeft + CamoDisplay(child).marginRight;
                     tempH += CamoDisplay(child).marginTop + CamoDisplay(child).marginBottom;
                 }
@@ -53,11 +62,13 @@ package com.flashartofwar.camo.layout {
             }
         }
 
-        public function layout(target:DisplayObjectContainer):void {
+        public function layout(target:DisplayObjectContainer):void
+        {
             if (!target) target = display;
         }
 
-        public function findCenter(target:DisplayObject, w:Number, h:Number):Point {
+        public function findCenter(target:DisplayObject, w:Number, h:Number):Point
+        {
 
 
             return internalPoint;

@@ -4,6 +4,7 @@ package com.flashartofwar.camo.behaviors
     {
 
         function set activate(value:Boolean):void;
+
         function set target(value:*):void;
     }
 }

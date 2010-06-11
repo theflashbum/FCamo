@@ -1,5 +1,6 @@
 package
-com.flashartofwar.camo.factories {
+com.flashartofwar.camo.factories
+{
     import com.flashartofwar.camo.applicators.XMLAttributeApplier;
     import com.flashartofwar.camo.display.CamoDisplay;
 
@@ -9,7 +10,8 @@ com.flashartofwar.camo.factories {
      *
      * @author jessefreeman
      */
-    public class ComponentFactory {
+    public class ComponentFactory
+    {
         /**
          * Creates a class from XML. Also allows you to replaces tokens in XML
          * by supplying a Token Object.
@@ -19,18 +21,21 @@ com.flashartofwar.camo.factories {
          * @param data
          * @param token
          * @return
-                *
+         *
          */
-        public static function createFromXML(data:XML, token:Object = null):CamoDisplay {
+        public static function createFromXML(data:XML, token:Object = null):CamoDisplay
+        {
             var component:CamoDisplay;
 
-            if (token != null) {
+            if (token != null)
+            {
                 data = replaceTokens(data, token);
             }
 
             var classPath:String = data.@["class"].toString();
 
-            if (classPath) {
+            if (classPath)
+            {
 
                 var tempClass:Class = getDefinitionByName(classPath) as Class;
 
@@ -45,7 +50,8 @@ com.flashartofwar.camo.factories {
                 XMLAttributeApplier.applyAttributes(component, data.attributes());
 
                 // Has more data?
-                if (component.hasOwnProperty("parseXML")) {
+                if (component.hasOwnProperty("parseXML"))
+                {
                     component["parseXML"](data);
                 }
             }
@@ -53,24 +59,28 @@ com.flashartofwar.camo.factories {
             return component;
         }
 
-        public static function createFromMXML(data:XML, token:Object = null):CamoDisplay {
+        public static function createFromMXML(data:XML, token:Object = null):CamoDisplay
+        {
             var component:CamoDisplay;
 
-            if (token != null) {
+            if (token != null)
+            {
                 data = replaceTokens(data, token);
             }
 
             var classPath:String = String(data.name()).replace("*::", "").toString();
             trace("class", classPath);
 
-            if (classPath) {
+            if (classPath)
+            {
                 var tempClass:Class = getDefinitionByName(classPath) as Class;
                 var id:String = data.@id;
                 component = new tempClass(id);
 
                 XMLAttributeApplier.applyAttributes(component, data.attributes());
 
-                if (component.hasOwnProperty("parseXML")) {
+                if (component.hasOwnProperty("parseXML"))
+                {
                     component["parseXML"](data);
                 }
             }
@@ -84,13 +94,15 @@ com.flashartofwar.camo.factories {
          * @param originalXML
          * @param paramObj
          * @return
-                *
+         *
          */
-        protected static function replaceTokens(originalXML:XML, paramObj:Object):XML {
+        protected static function replaceTokens(originalXML:XML, paramObj:Object):XML
+        {
             //token structure ${tokenName}
             var myRegEx:RegExp = /\$\{([a-zA-Z0-9]+)\}/g;
             var xmlString:String = originalXML.toXMLString();
-            return XML(xmlString.replace(myRegEx, function():* {
+            return XML(xmlString.replace(myRegEx, function():*
+            {
                 return paramObj[arguments[1]];
             }));
         }

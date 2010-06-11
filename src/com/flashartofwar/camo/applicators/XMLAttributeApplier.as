@@ -1,10 +1,12 @@
 package
-com.flashartofwar.camo.applicators {
+com.flashartofwar.camo.applicators
+{
 
     /**
      * @author jessefreeman
      */
-    public class XMLAttributeApplier {
+    public class XMLAttributeApplier
+    {
 
         /**
          * This is a list of attributes that will not be applied to an Object.
@@ -24,12 +26,16 @@ com.flashartofwar.camo.applicators {
          * @param target
          * @param attributes
          */
-        public static function applyAttributes(target:Object, attributes:XMLList):void {
-            for (var i:int = 0; i < attributes.length(); i ++) {
+        public static function applyAttributes(target:Object, attributes:XMLList):void
+        {
+            for (var i:int = 0; i < attributes.length(); i ++)
+            {
                 var attName:String = String(attributes[i].name());
-                if (! RESERVED_PROPERTIES[attName]) {
+                if (! RESERVED_PROPERTIES[attName])
+                {
 
-                    if (target.hasOwnProperty(attName)) {
+                    if (target.hasOwnProperty(attName))
+                    {
                         target[attName] = attributes[i].toXMLString();
                     }
                 }

@@ -1,7 +1,9 @@
-package com.flashartofwar.camo.layout {
+package com.flashartofwar.camo.layout
+{
     import flash.display.DisplayObjectContainer;
 
-    public interface ILayout {
+    public interface ILayout
+    {
 
         function measure(target:DisplayObjectContainer):void;
 

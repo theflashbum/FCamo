@@ -28,10 +28,12 @@
  *
  */
 
-package com.flashartofwar.camo.events {
+package com.flashartofwar.camo.events
+{
 
 
-    public class LoaderManagerEvent extends AbstractDataEvent {
+    public class LoaderManagerEvent extends AbstractDataEvent
+    {
 
         public static const COMPLETE:String = "complete";
         public static const LOADED:String = "loaded";
@@ -48,7 +50,8 @@ package com.flashartofwar.camo.events {
          * @param cancelable
          *
          */
-        public function LoaderManagerEvent(type:String, data:Object = null, bubbles:Boolean = false, cancelable:Boolean = false) {
+        public function LoaderManagerEvent(type:String, data:Object = null, bubbles:Boolean = false, cancelable:Boolean = false)
+        {
             super(this, type, data, bubbles, cancelable);
         }
     }

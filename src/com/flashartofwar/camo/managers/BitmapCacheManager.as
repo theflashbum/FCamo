@@ -2,14 +2,15 @@ package com.flashartofwar.camo.managers
 {
     import flash.display.Bitmap;
     import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-    public class BitmapCacheManager
+    public class BitmapCacheManager extends EventDispatcher
     {
         private var cachedBitmaps:Array = [];
         private var loading:Array = [];
 
         public var overrideBitmaps:Boolean;
-        
+
         public function BitmapCacheManager()
         {
         }
@@ -18,14 +19,14 @@ package com.flashartofwar.camo.managers
         {
             // add bitmap data to cachedBitmap
 
-            if((cachedBitmaps[id]) && (!overrideBitmaps))
+            if ((cachedBitmaps[id]) && (!overrideBitmaps))
             {
-                throw new Error("Bitmap ID "+id+" already exists and can not be overriden. Please set overrideBitmaps flag to true.");
+                throw new Error("Bitmap ID " + id + " already exists and can not be overriden. Please set overrideBitmaps flag to true.");
             }
             else
             {
                 cachedBitmaps[id] = bitmap;
-                if(isLoading && (loading.indexOf(id) == -1))
+                if (isLoading && (loading.indexOf(id) == -1))
                     addToLoading(id, bitmap);
             }
 

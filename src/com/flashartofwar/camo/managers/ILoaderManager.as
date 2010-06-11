@@ -28,10 +28,12 @@
  *
  */
 
-package com.flashartofwar.camo.managers {
+package com.flashartofwar.camo.managers
+{
     import flash.system.LoaderContext;
 
-    public interface ILoaderManager {
+    public interface ILoaderManager
+    {
         function load(url:String, loaderContext:LoaderContext = null):void;
 
         function addToQueue(list:Array):void;

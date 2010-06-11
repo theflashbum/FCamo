@@ -28,17 +28,20 @@
  *
  */
 
-package com.flashartofwar.camo.managers {
+package com.flashartofwar.camo.managers
+{
     import flash.display.Bitmap;
     import flash.display.BitmapData;
     import flash.display.Loader;
 
-    public class BitmapLoaderManager extends LoaderManager {
+    public class BitmapLoaderManager extends LoaderManager
+    {
         /**
          *
          *
          */
-        public function BitmapLoaderManager() {
+        public function BitmapLoaderManager()
+        {
             super();
         }
 
@@ -48,7 +51,8 @@ package com.flashartofwar.camo.managers {
          * @return
          *
          */
-        override protected function registerLoader(id:String, loader:Loader):void {
+        override protected function registerLoader(id:String, loader:Loader):void
+        {
             var bmd:BitmapData = Bitmap(loader.content).bitmapData.clone();
             var bitmap:Bitmap = new Bitmap(bmd);
 

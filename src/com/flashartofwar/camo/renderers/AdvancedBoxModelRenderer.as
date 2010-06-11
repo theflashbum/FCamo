@@ -1,4 +1,5 @@
-package com.flashartofwar.camo.renderers {
+package com.flashartofwar.camo.renderers
+{
     import com.flashartofwar.fboxmodel.renderers.BoxModelRenderer;
     import com.flashartofwar.fcss.enum.CSSProperties;
 
@@ -6,21 +7,25 @@ package com.flashartofwar.camo.renderers {
     import flash.display.Shape;
     import flash.display.Sprite;
 
-    public class AdvancedBoxModelRenderer extends BoxModelRenderer {
+    public class AdvancedBoxModelRenderer extends BoxModelRenderer
+    {
 
         protected var _overflow:String;
         private var maskShape:Shape;
 
-        public function AdvancedBoxModelRenderer(display:Sprite, graphics:Graphics, maskShape:Shape) {
+        public function AdvancedBoxModelRenderer(display:Sprite, graphics:Graphics, maskShape:Shape)
+        {
 
             this.maskShape = maskShape;
             super(display, graphics);
         }
 
-        public function set overflow(value:String):void {
+        public function set overflow(value:String):void
+        {
             _overflow = value;
             // Parse Overflow
-            switch (value) {
+            switch (value)
+            {
                 case CSSProperties.HIDDEN:
                 {
                     activateOverflowHidden();
@@ -34,7 +39,8 @@ package com.flashartofwar.camo.renderers {
             }
         }
 
-        public function get overflow():String {
+        public function get overflow():String
+        {
             return _overflow;
         }
 
@@ -42,7 +48,8 @@ package com.flashartofwar.camo.renderers {
          *
          *
          */
-        protected function activateOverflowHidden():void {
+        protected function activateOverflowHidden():void
+        {
             // Draw mask around display
             maskShape.graphics.clear();
             trace("mask", _width, _height);
@@ -61,7 +68,8 @@ package com.flashartofwar.camo.renderers {
          *
          *
          */
-        protected function clearOverflow():void {
+        protected function clearOverflow():void
+        {
             maskShape.graphics.clear();
 
             display.mask = null;
@@ -72,7 +80,8 @@ package com.flashartofwar.camo.renderers {
          * @param value
          *
          */
-        override public function set width(value:Number):void {
+        override public function set width(value:Number):void
+        {
             if (_overflow == CSSProperties.HIDDEN) maskShape.width = _width;
             super.width = value;
         }
@@ -82,7 +91,8 @@ package com.flashartofwar.camo.renderers {
          * @return
          *
          */
-        override public function get width():Number {
+        override public function get width():Number
+        {
             return (_overflow == CSSProperties.HIDDEN) ? (borderLeft + paddingLeft + maskShape.width + paddingRight + borderRight) : super.width;
         }
 
@@ -91,12 +101,14 @@ package com.flashartofwar.camo.renderers {
          * @param value
          *
          */
-        override public function set height(value:Number):void {
+        override public function set height(value:Number):void
+        {
             super.height = value;
             if (_overflow == CSSProperties.HIDDEN) maskShape.height = _height;
         }
 
-        override public function get height():Number {
+        override public function get height():Number
+        {
             return (_overflow == CSSProperties.HIDDEN) ? (borderTop + paddingTop + maskShape.height + paddingBottom + borderBottom) : super.height;
         }
 
@@ -105,11 +117,14 @@ package com.flashartofwar.camo.renderers {
          * @return
          *
          */
-        override public function get displayWidth():Number {
-            if (_overflow == CSSProperties.HIDDEN) {
+        override public function get displayWidth():Number
+        {
+            if (_overflow == CSSProperties.HIDDEN)
+            {
                 return maskShape.width;
             }
-            else {
+            else
+            {
                 return super.displayWidth;
             }
 
@@ -120,12 +135,15 @@ package com.flashartofwar.camo.renderers {
          * @return
          *
          */
-        override public function get displayHeight():Number {
+        override public function get displayHeight():Number
+        {
 
-            if (_overflow == CSSProperties.HIDDEN) {
+            if (_overflow == CSSProperties.HIDDEN)
+            {
                 return maskShape.height;
             }
-            else {
+            else
+            {
                 return super.displayHeight;
             }
 
@@ -135,9 +153,11 @@ package com.flashartofwar.camo.renderers {
          *
          *
          */
-        override public function drawBoxModel():void {
+        override public function drawBoxModel():void
+        {
 
-            if (_overflow == CSSProperties.HIDDEN) {
+            if (_overflow == CSSProperties.HIDDEN)
+            {
                 maskShape.width = _width;
                 maskShape.height = _height;
                 maskShape.x = paddingLeft + borderLeft;

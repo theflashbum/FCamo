@@ -11,12 +11,14 @@ package com.flashartofwar.camo.components
             super(styleID, styleClass);
         }
 
-        override protected function init():void {
+        override protected function init():void
+        {
             super.init();
             addButtonBehavior();
         }
 
-        private function addButtonBehavior():void {
+        private function addButtonBehavior():void
+        {
             buttonBehavior = new ChangeStyleBehavior(this);
         }
     }

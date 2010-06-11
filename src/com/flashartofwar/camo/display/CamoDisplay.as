@@ -1,4 +1,6 @@
-package com.flashartofwar.camo.display {
+package com.flashartofwar.camo.display
+{
+    import com.flashartofwar.camo.display.CamoBitmap;
     import com.flashartofwar.camo.managers.SingletonManager;
     import com.flashartofwar.camo.renderers.AdvancedBoxModelRenderer;
     import com.flashartofwar.fboxmodel.FBoxModel;
@@ -6,30 +8,24 @@ package com.flashartofwar.camo.display {
     import com.flashartofwar.fcss.applicators.IApplicator;
     import com.flashartofwar.fcss.applicators.StyleApplicator;
     import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
-    import com.flashartofwar.fcss.enum.CSSProperties;
     import com.flashartofwar.fcss.styles.IStyle;
     import com.flashartofwar.fcss.stylesheets.IStyleSheet;
     import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
-    import com.flashartofwar.fcss.utils.TypeHelperUtil;
+    import com.flashartofwar.fcss.typer.splitTypeFromSource;
+    import com.flashartofwar.fcss.validators.validateAlign;
+    import com.flashartofwar.fcss.validators.validateVerticalAlign;
 
     import flash.display.Bitmap;
     import flash.display.BitmapData;
     import flash.display.DisplayObject;
-    import flash.display.Loader;
-    import flash.display.LoaderInfo;
     import flash.display.Shape;
     import flash.display.Sprite;
     import flash.events.Event;
-    import flash.events.IOErrorEvent;
-    import flash.net.URLRequest;
-    import flash.utils.Dictionary;
 
-    public class CamoDisplay extends FBoxModel {
+    public class CamoDisplay extends FBoxModel
+    {
 
         protected var maskShape:Shape = new Shape();
-        protected var _bgImageLoader:Loader;
-        protected var cachedBackgroundImages:Dictionary = new Dictionary(true);
-        protected var backgroundImageSource:String;
         protected var _cursor:String;
         protected var _verticalAlign:String;
         protected var _align:String;
@@ -45,18 +41,17 @@ package com.flashartofwar.camo.display {
          *
          *
          */
-        public function CamoDisplay(styleID:String, styleClass:String = "CamoDisplay") {
+        public function CamoDisplay(styleID:String, styleClass:String = "CamoDisplay")
+        {
 
             this.styleID = styleID;
             this.styleClass = styleClass;
 
-            this.styleSheetCollection = styleSheetCollection;
-            this.applicator = applicator;
-
             super();
         }
 
-        override protected function init():void {
+        override protected function init():void
+        {
             //TODO this needs to be thought out better, maskShape should only exist when needed?
             $addChild(maskShape);
             super.init();
@@ -64,14 +59,16 @@ package com.flashartofwar.camo.display {
             addStyleBehavior();
         }
 
-        protected function addStyleBehavior():void {
+        protected function addStyleBehavior():void
+        {
             styleBehavior = new ApplyStyleBehavior(this, applicator, styleSheetCollection, styleID);
         }
 
         /**
          * Overriden in subclasses to create child display objects.
          */
-        protected function addChildren():void {
+        protected function addChildren():void
+        {
 
         }
 
@@ -80,7 +77,8 @@ package com.flashartofwar.camo.display {
          * @param xpos the x position to move the component
          * @param ypos the y position to move the component
          */
-        public function move(xpos:Number, ypos:Number):void {
+        public function move(xpos:Number, ypos:Number):void
+        {
             x = Math.round(xpos);
             y = Math.round(ypos);
         }
@@ -90,7 +88,8 @@ package com.flashartofwar.camo.display {
          * @param w The width of the component.
          * @param h The height of the component.
          */
-        public function setSize(w:Number, h:Number):void {
+        public function setSize(w:Number, h:Number):void
+        {
             width = w;
             height = h;
         }
@@ -98,44 +97,53 @@ package com.flashartofwar.camo.display {
         /**
          * Overrides the setter for x to always place the component on a whole pixel.
          */
-        override public function set x(value:Number):void {
+        override public function set x(value:Number):void
+        {
             super.x = Math.round(value);
         }
 
         /**
          * Overrides the setter for y to always place the component on a whole pixel.
          */
-        override public function set y(value:Number):void {
+        override public function set y(value:Number):void
+        {
             super.y = Math.round(value);
         }
 
         // Implemented from IApplyStyleBehavior
 
-        public function applyDefaultStyle(pseudoSelector:String = null):void {
+        public function applyDefaultStyle(pseudoSelector:String = null):void
+        {
             styleBehavior.applyDefaultStyle(pseudoSelector);
         }
 
-        public function applyStyle(style:IStyle):void {
+        public function applyStyle(style:IStyle):void
+        {
             styleBehavior.applyStyle(style);
         }
 
-        public function get className():String {
+        public function get className():String
+        {
             return styleBehavior.className;
         }
 
-        public function get id():String {
+        public function get id():String
+        {
             return styleBehavior.id;
         }
 
-        public function get defaultStyleNames():Array {
+        public function get defaultStyleNames():Array
+        {
             return styleBehavior.defaultStyleNames;
         }
 
-        public function getPseudoSelector(state:String):IStyle {
+        public function getPseudoSelector(state:String):IStyle
+        {
             return styleBehavior.getPseudoSelector(state);
         }
 
-        override protected function createRenderer():BoxModelRenderer {
+        override protected function createRenderer():BoxModelRenderer
+        {
             advancedBoxModelRenderer = new AdvancedBoxModelRenderer(_display, graphics, maskShape);
             return advancedBoxModelRenderer;
         }
@@ -145,14 +153,16 @@ package com.flashartofwar.camo.display {
          * @param value
          *
          */
-        public function set cursor(value:String):void {
+        public function set cursor(value:String):void
+        {
             _cursor = value;
         }
 
         /**
          *
          */
-        public function get cursor():String {
+        public function get cursor():String
+        {
             return _cursor;
         }
 
@@ -161,14 +171,16 @@ package com.flashartofwar.camo.display {
          * @param value
          *
          */
-        public function set verticalAlign(value:String):void {
+        public function set verticalAlign(value:String):void
+        {
             _verticalAlign = validateVerticalAlign(value);
         }
 
         /**
          *
          */
-        public function get verticalAlign():String {
+        public function get verticalAlign():String
+        {
             return _verticalAlign;
         }
 
@@ -177,7 +189,8 @@ package com.flashartofwar.camo.display {
          * @param value
          *
          */
-        public function set align(value:String):void {
+        public function set align(value:String):void
+        {
             _align = validateAlign(value);
         }
 
@@ -186,7 +199,8 @@ package com.flashartofwar.camo.display {
 
          *
          */
-        public function get align():String {
+        public function get align():String
+        {
             return _align;
         }
 
@@ -195,11 +209,13 @@ package com.flashartofwar.camo.display {
          * @param value
          *
          */
-        public function set overflow(value:String):void {
+        public function set overflow(value:String):void
+        {
             advancedBoxModelRenderer.overflow = value;
         }
 
-        public function get overflow():String {
+        public function get overflow():String
+        {
             return advancedBoxModelRenderer.overflow;
         }
 
@@ -209,62 +225,43 @@ package com.flashartofwar.camo.display {
          * @param value
          *
          */
-        public function set backgroundImage(value:String):void {
-            if (value == "none") {
+        public function set backgroundImage(value:String):void
+        {
+            if (value == "none")
+            {
                 clearBackgroundImage();
+                invalidate();
             }
-            else {
-                loadBackgroundImage(TypeHelperUtil.stringToUrlRequest(value));
-            }
+            else
+             {
+             var request:Object = splitTypeFromSource(value);
+             var type:String = request.type;
+             var source:String = request.source;
 
-            invalidate();
+             createBackgroundBitmap(request.source);
+
+             }
+
+
         }
 
-        /**
-         *
-         * @param type
-         * @param source
-         *
-         */
-        protected function loadBackgroundImage(request:URLRequest):Loader {
-            if (!cachedBackgroundImages[request.url]) {
-                _bgImageLoader = new Loader();
+        protected function createBackgroundBitmap(source:String):void
+        {
 
-                backgroundImageSource = request.url;
+            if(!(backgroundImageBitmap is CamoBitmap))
+            {
+               var cb:CamoBitmap = new CamoBitmap();
+               cb.addEventListener(Event.CHANGE, onBackgroundImageBitmapChange);
+               cb.load(source);
 
-                addListeners(_bgImageLoader.contentLoaderInfo);
-                _bgImageLoader.load(request);
 
-                return _bgImageLoader;
-            }
-            else {
-                sampleBackground(cachedBackgroundImages[request.url]);
             }
 
-            return null;
         }
 
-
-        /**
-         * <p>This is called when a BG Image is loaded. It attaches the BG Image's
-         *      BitmapData to the _backgroundImageContainer. If 9 Slice data was
-         *      supplied it will put the BitmapData into a ScaleBitmap class, apply
-         *      the 9 slice values to allow undistorted stretching of the supplied
-         *      BG Image.</p>
-         */
-        protected function onBGImageLoad(e:Event):void {
-            var info:LoaderInfo = e.target as LoaderInfo;
-            var loader:Loader = info.loader;
-            var tempBitmap:Bitmap = Bitmap(loader.content);
-
-            if (backgroundImageSource)
-                cachedBackgroundImages[backgroundImageSource] = tempBitmap;
-
-            if (_bgImageLoader)
-                if (_bgImageLoader.contentLoaderInfo)
-                    removeListeners(_bgImageLoader.contentLoaderInfo);
-
-            sampleBackground(tempBitmap);
+        protected function onBackgroundImageBitmapChange(event:Event):void
+        {
+            sampleBackground(event.target as Bitmap);
         }
 
         /**
@@ -272,62 +269,18 @@ package com.flashartofwar.camo.display {
          * @param tempBitmap
          *
          */
-        protected function sampleBackground(tempBitmap:Bitmap):void {
+        protected function sampleBackground(tempBitmap:Bitmap):void
+        {
             boxModelRenderer.backgroundImageBitmap = tempBitmap;
-            _bgImageLoader = null;
             invalidate();
         }
 
-        /**
-         *
-         * @param bitmapData
+        override public function clearBackgroundImage():void
+        {
+            if(backgroundImageBitmap is CamoBitmap)
+                CamoBitmap(backgroundImageBitmap).destroy();
 
-         *
-         */
-        //              override protected function createBackgroundBitmap(bitmapData:BitmapData):Bitmap
-        //              {
-        //                      return new Bitmap( bitmapData);
-        //              }
-
-        /**
-         * <p>attaches listeners to LoaderInfo. This is used to streamline the
-         * repetitive adding of listeners in the preload process.</p>
-         */
-        internal function addListeners(target:LoaderInfo):void {
-            target.addEventListener(Event.COMPLETE, onBGImageLoad);
-            target.addEventListener(IOErrorEvent.IO_ERROR, ioError);
-        }
-
-        /**
-         * <p>removes listeners to LoaderInfo. This is used to streamline the
-         * remove of listeners from the preload process and frees up memory.</p>
-         */
-        internal function removeListeners(target:LoaderInfo):void {
-            target.removeEventListener(Event.COMPLETE, onBGImageLoad);
-            target.removeEventListener(IOErrorEvent.IO_ERROR, ioError);
-            backgroundImageSource = null;
-        }
-
-
-        /**
-         * <p>Called when a file can not be loaded. It automatically triggers
-         * the next preload.</p>
-         */
-        internal function ioError(event:IOErrorEvent):void {
-            //throw new IllegalOperationError("ERROR: Could not load background image.");
-        }
-
-        override public function clearBackgroundImage():void {
-            if (_bgImageLoader) {
-                try {
-                    _bgImageLoader.close();
-                }
-                catch(error:Error) {
-                    trace("Bg Image Loader could not be closed");
-                }
-                removeListeners(_bgImageLoader.contentLoaderInfo);
-                _bgImageLoader = null;
-            }
+            //TODO Remove any listeners we may have
             super.clearBackgroundImage();
         }
 
@@ -340,7 +293,8 @@ package com.flashartofwar.camo.display {
          * There is no way to unrasterize.</p>
          *
          */
-        public function rasterize():void {
+        public function rasterize():void
+        {
             var bmd:BitmapData = new BitmapData(display.width, display.height, true, 0xff0000);
             bmd.draw(display);
 
@@ -359,14 +313,16 @@ package com.flashartofwar.camo.display {
         }
 
         /**
-         *      <p>Checks to see if the child has a zIndex before adding to the display.</p>
+         * <p>Checks to see if the child has a zIndex before adding to the display.</p>
          * @param child
 
          *
          */
-        override public function addChild(child:DisplayObject):DisplayObject {
+        override public function addChild(child:DisplayObject):DisplayObject
+        {
             invalidate();
-            if (child.hasOwnProperty("zIndex")) {
+            if (child.hasOwnProperty("zIndex"))
+            {
                 if (!isNaN(child["zIndex"]))
                     return addChildAt(child, validateZIndex(child["zIndex"]));
                 else
@@ -374,7 +330,7 @@ package com.flashartofwar.camo.display {
             }
 
             return super.addChild(child);
-            
+
         }
 
         /**
@@ -383,37 +339,9 @@ package com.flashartofwar.camo.display {
 
          *
          */
-        protected function validateZIndex(value:Number):Number {
+        protected function validateZIndex(value:Number):Number
+        {
             return value > numChildren ? numChildren : value;
-        }
-
-
-        /**
-         * @private
-         * @param value
-
-         *
-         */
-        protected function validateVerticalAlign(value:String):String {
-            if (value == CSSProperties.TOP || value == CSSProperties.MIDDLE || value == CSSProperties.BOTTOM) {
-                return value;
-            } else {
-                return null;
-            }
-        }
-
-        /**
-         *
-         * @param value
-
-         *
-         */
-        protected function validateAlign(value:String):String {
-            if (value == CSSProperties.LEFT || value == CSSProperties.CENTER || value == CSSProperties.RIGHT) {
-                return value;
-            } else {
-                return null;
-            }
         }
 
         public function destroy():void

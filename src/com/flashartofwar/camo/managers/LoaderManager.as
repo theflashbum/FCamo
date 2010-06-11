@@ -28,7 +28,8 @@
  *
  */
 
-package com.flashartofwar.camo.managers {
+package com.flashartofwar.camo.managers
+{
     import com.flashartofwar.camo.events.LoaderManagerEvent;
 
     import flash.display.Loader;
@@ -43,7 +44,8 @@ package com.flashartofwar.camo.managers {
     import flash.system.LoaderContext;
     import flash.utils.Dictionary;
 
-    public class LoaderManager extends EventDispatcher implements ILoaderManager {
+    public class LoaderManager extends EventDispatcher implements ILoaderManager
+    {
 
         protected var _loadQueue:Array = [];
         protected var _loading:Boolean;
@@ -59,7 +61,8 @@ package com.flashartofwar.camo.managers {
          *
          *
          */
-        public function LoaderManager() {
+        public function LoaderManager()
+        {
             _loading = false;
         }
 
@@ -68,13 +71,17 @@ package com.flashartofwar.camo.managers {
          * @param url
          *
          */
-        public function load(url:String, loaderContext:LoaderContext = null):void {
+        public function load(url:String, loaderContext:LoaderContext = null):void
+        {
             var fileName:String = url;
-            if (! loadedReference[fileName]) {
-                if (_loading) {
+            if (! loadedReference[fileName])
+            {
+                if (_loading)
+                {
                     _loadQueue.push(url);
                 }
-                else {
+                else
+                {
                     _loading = true;
                     var path:URLRequest = new URLRequest(url);
                     var loader:Loader = new Loader();
@@ -83,7 +90,8 @@ package com.flashartofwar.camo.managers {
                     loader.load(path, (loaderContext) ? loaderContext : context);
                 }
             }
-            else {
+            else
+            {
                 // Remove first item in the queue
                 _loadQueue = _loadQueue.slice(1);
                 //var id : int = loaded.indexOf( loadedReference[fileName] );
@@ -97,11 +105,13 @@ package com.flashartofwar.camo.managers {
          * @param list
          *
          */
-        public function addToQueue(list:Array):void {
+        public function addToQueue(list:Array):void
+        {
             _loadQueue = _loadQueue.concat(list);
             totalPreloading += _loadQueue.length;
 
-            if (! _loading) {
+            if (! _loading)
+            {
                 preload();
             }
         }
@@ -111,13 +121,16 @@ package com.flashartofwar.camo.managers {
          * loading is needed, the preloader calls the loadPage. If preloading is complete, a
          * PRELOAD_DONE e is dispatched.
          */
-        protected function preload():void {
-            if (_loadQueue.length >= 1) {
+        protected function preload():void
+        {
+            if (_loadQueue.length >= 1)
+            {
                 load(_loadQueue[0]);
                 totalPreloaded ++;
                 dispatchEvent(new LoaderManagerEvent(LoaderManagerEvent.PRELOAD_NEXT, {totalPreloaded: totalPreloaded, totalPreloading: totalPreloading, fileName:_loadQueue[0]}, true, true));
             }
-            else {
+            else
+            {
                 dispatchEvent(new LoaderManagerEvent(LoaderManagerEvent.PRELOAD_DONE, {totalPreloaded: totalPreloaded}, true, true));
 
                 // Clear preloading counter
@@ -130,7 +143,8 @@ package com.flashartofwar.camo.managers {
          * <p>This is called when swf is loaded. After loading, the listeners are removed
          * and preload is recalled to continue with the preloading process.</p>
          */
-        protected function onLoadComplete(e:Event):void {
+        protected function onLoadComplete(e:Event):void
+        {
             e.stopImmediatePropagation();
 
             // Remove first item in the queue
@@ -162,9 +176,10 @@ package com.flashartofwar.camo.managers {
          *
          * @param loader
          * @return
-                *
+         *
          */
-        protected function registerLoader(id:String, loader:Loader):void {
+        protected function registerLoader(id:String, loader:Loader):void
+        {
             loaded.push(loader);
             loadedReference[id] = loader;
         }
@@ -176,14 +191,16 @@ package com.flashartofwar.camo.managers {
          * @param target
          *
          */
-        protected function addListeners(target:LoaderInfo):void {
+        protected function addListeners(target:LoaderInfo):void
+        {
             target.addEventListener(Event.COMPLETE, onLoadComplete);
             target.addEventListener(ProgressEvent.PROGRESS, onLoaderProgress);
             target.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
             target.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityError);
         }
 
-        private function onLoaderProgress(event:ProgressEvent):void {
+        private function onLoaderProgress(event:ProgressEvent):void
+        {
             event.stopPropagation();
             dispatchEvent(new LoaderManagerEvent(LoaderManagerEvent.PROGRESS, {percent: event.bytesLoaded / event.bytesTotal, bytesLoaded: event.bytesLoaded, bytesTotal: event.bytesTotal}));
         }
@@ -192,7 +209,8 @@ package com.flashartofwar.camo.managers {
          * <p>removes listeners to LoaderInfo. This is used to streamline the remove of listeners
          * from the preload process and frees up memory.</p>
          */
-        protected function removeListeners(target:LoaderInfo):void {
+        protected function removeListeners(target:LoaderInfo):void
+        {
             target.removeEventListener(Event.COMPLETE, onLoadComplete);
             target.removeEventListener(ProgressEvent.PROGRESS, onLoaderProgress);
             target.removeEventListener(IOErrorEvent.IO_ERROR, onIOError);
@@ -202,7 +220,8 @@ package com.flashartofwar.camo.managers {
         /**
          *
          */
-        protected function onSecurityError(e:SecurityErrorEvent):void {
+        protected function onSecurityError(e:SecurityErrorEvent):void
+        {
             e.stopImmediatePropagation();
             trace("ExternalSwfLoader: Securty error while loading '" + _currentlyLoadingFile + "'.");
             abortLoad();
@@ -211,7 +230,8 @@ package com.flashartofwar.camo.managers {
         /**
          *
          */
-        protected function onIOError(e:IOErrorEvent):void {
+        protected function onIOError(e:IOErrorEvent):void
+        {
             e.stopImmediatePropagation();
             trace("ExternalSwfLoader: onIOError error while loading '" + _currentlyLoadingFile + "'.");
             abortLoad();
@@ -221,7 +241,8 @@ package com.flashartofwar.camo.managers {
          *
          *
          */
-        public function abortLoad():void {
+        public function abortLoad():void
+        {
             _currentlyLoadingFile = null;
 
 
@@ -239,7 +260,8 @@ package com.flashartofwar.camo.managers {
          *
          *
          */
-        public function flush():void {
+        public function flush():void
+        {
             // reset arrays just to make sure
             loaded = new Array();
             loadedReference = new Dictionary(true);

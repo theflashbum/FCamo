@@ -1,15 +1,19 @@
-package com.flashartofwar.camo.behaviors {
+package com.flashartofwar.camo.behaviors
+{
     import flash.events.EventDispatcher;
 
-    public class AbstractBehavior extends EventDispatcher {
+    public class AbstractBehavior extends EventDispatcher
+    {
 
         protected var _target:*;
 
-        public function AbstractBehavior(target:*) {
+        public function AbstractBehavior(target:*)
+        {
             this.target = target;
         }
 
-        public function set target(instance:*):void {
+        public function set target(instance:*):void
+        {
             _target = instance;
         }
     }
