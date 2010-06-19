@@ -1,6 +1,7 @@
 package com.flashartofwar.camo.display
 {
     import com.flashartofwar.camo.display.CamoBitmap;
+    import com.flashartofwar.camo.display.CamoBitmap;
     import com.flashartofwar.camo.managers.SingletonManager;
     import com.flashartofwar.camo.renderers.AdvancedBoxModelRenderer;
     import com.flashartofwar.fboxmodel.FBoxModel;
@@ -61,7 +62,7 @@ package com.flashartofwar.camo.display
 
         protected function addStyleBehavior():void
         {
-            styleBehavior = new ApplyStyleBehavior(this, applicator, styleSheetCollection, styleID);
+            styleBehavior = new ApplyStyleBehavior(this, applicator, styleSheetCollection, styleID, styleClass);
         }
 
         /**
@@ -253,8 +254,10 @@ package com.flashartofwar.camo.display
                var cb:CamoBitmap = new CamoBitmap();
                cb.addEventListener(Event.CHANGE, onBackgroundImageBitmapChange);
                cb.load(source);
-
-
+            }
+            else
+            {
+                CamoBitmap(backgroundImageBitmap).load(source);
             }
 
         }

@@ -2,70 +2,58 @@ package com.flashartofwar.camo.behaviors
 {
     import flash.events.MouseEvent;
 
-    public class ChangeStyleBehavior
+    public class ChangeStyleBehavior extends AbstractBehavior
     {
 
-        private var _target:*;
-        private var _activate:Boolean;
-        private const OVER:String = "over";
-
+        protected const OVER:String = "over";
+        protected const DOWN:String = "down";
+        protected var inside:Boolean = false;
+        
         public function ChangeStyleBehavior(target:*, activate:Boolean = true)
         {
-            this.target = target;
-            this.activate = activate;
-            init();
-        }
-
-        private function init():void
-        {
+            super(target, activate);
 
         }
 
-        public function set activate(activate:Boolean):void
-        {
-            _activate = activate;
-            if (_activate)
-            {
-                addEventListeners();
-            }
-            else
-            {
-                removeEventListeners();
-            }
-        }
-
-        private function addEventListeners():void
+        override protected function addEventListeners():void
         {
             _target.addEventListener(MouseEvent.ROLL_OVER, onRollOver);
             _target.addEventListener(MouseEvent.ROLL_OUT, onRollOut);
+            _target.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+            _target.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
         }
 
-        private function onRollOver(event:MouseEvent):void
+        override protected function removeEventListeners():void
         {
+            _target.removeEventListener(MouseEvent.ROLL_OVER, onRollOver);
+            _target.removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
+            _target.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+            _target.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+        }
+
+        protected function onMouseUp(event:MouseEvent):void
+        {
+            _target.applyDefaultStyle(inside ? OVER : null);
+        }
+
+        protected function onMouseDown(event:MouseEvent):void
+        {
+            _target.applyDefaultStyle(DOWN);
+        }
+
+        protected function onRollOver(event:MouseEvent):void
+        {
+            inside = true;
             _target.applyDefaultStyle(OVER);
         }
 
-        private function onRollOut(event:MouseEvent):void
+        protected function onRollOut(event:MouseEvent):void
         {
+            inside = false;
             _target.applyDefaultStyle()
         }
 
 
-        private function removeEventListeners():void
-        {
-            _target.removeEventListener(MouseEvent.ROLL_OVER, onRollOver);
-            _target.removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
-        }
 
-        public function get activate():Boolean
-        {
-            return _activate;
-        }
-
-        public function set target(value:*):void
-        {
-            _target = value;
-
-        }
     }
 }

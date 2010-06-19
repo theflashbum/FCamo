@@ -6,15 +6,46 @@ package com.flashartofwar.camo.behaviors
     {
 
         protected var _target:*;
-
-        public function AbstractBehavior(target:*)
+        protected var _activate:Boolean;
+                
+        public function AbstractBehavior(target:*, activate:Boolean = true)
         {
             this.target = target;
+            this.activate = activate;
         }
 
         public function set target(instance:*):void
         {
             _target = instance;
         }
+
+        public function get activate():Boolean
+        {
+            return _activate;
+        }
+        
+        public function set activate(activate:Boolean):void
+        {
+            _activate = activate;
+            if (_activate)
+            {
+                addEventListeners();
+            }
+            else
+            {
+                removeEventListeners();
+            }
+        }
+        
+        protected function addEventListeners():void
+        {
+
+        }
+
+        protected function removeEventListeners():void
+        {
+
+        }
+
     }
 }

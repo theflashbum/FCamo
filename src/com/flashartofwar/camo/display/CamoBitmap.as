@@ -48,7 +48,7 @@ package com.flashartofwar.camo.display
                 if (cachedBitmaps.hasBitmap(url) && !cachedBitmaps.isLoading(url))
                 {
                     // Bitmap is cached and is already loaded
-                    bitmapData = BitmapData(cachedBitmaps.getBitmap(url)).clone();
+                    bitmapData = cachedBitmaps.getBitmap(url).bitmapData.clone();
                 }
                 else if (cachedBitmaps.hasBitmap(url) && cachedBitmaps.isLoading(url))
                 {
@@ -151,8 +151,9 @@ package com.flashartofwar.camo.display
             var loader:Loader = info.loader;
             removeLoadListeners(loader.contentLoaderInfo);
 
-            this.bitmapData = Bitmap(loader.content).bitmapData
-
+            bitmapData = Bitmap(loader.content).bitmapData;
+            cachedBitmaps.getBitmap(id).bitmapData = bitmapData.clone();
+            
             loader = null;
         }
 
