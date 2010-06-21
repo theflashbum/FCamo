@@ -34,7 +34,7 @@ package com.flashartofwar.camo.components{
                 pseudoSelector += "_" + SELECTED;
             }
 
-            styleBehavior.applyDefaultStyle(pseudoSelector);
+            super.applyDefaultStyle(pseudoSelector);
         }
 
     }

@@ -2,6 +2,8 @@ package com.flashartofwar.camo.display
 {
     import com.flashartofwar.camo.display.CamoBitmap;
     import com.flashartofwar.camo.display.CamoBitmap;
+    import com.flashartofwar.camo.enum.ComponentState;
+    import com.flashartofwar.camo.events.StyleChangedEvent;
     import com.flashartofwar.camo.managers.SingletonManager;
     import com.flashartofwar.camo.renderers.AdvancedBoxModelRenderer;
     import com.flashartofwar.fboxmodel.FBoxModel;
@@ -116,6 +118,10 @@ package com.flashartofwar.camo.display
         public function applyDefaultStyle(pseudoSelector:String = null):void
         {
             styleBehavior.applyDefaultStyle(pseudoSelector);
+
+            var eventType:String = pseudoSelector ? pseudoSelector : ComponentState.DEFAULT;
+            
+            dispatchEvent(new StyleChangedEvent(eventType, true, true));
         }
 
         public function applyStyle(style:IStyle):void
