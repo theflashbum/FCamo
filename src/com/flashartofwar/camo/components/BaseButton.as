@@ -1,11 +1,11 @@
 package com.flashartofwar.camo.components
 {
-    import com.flashartofwar.camo.behaviors.ChangeStyleBehavior;
+    import com.flashartofwar.camo.behaviors.ButtonStyleBehavior;
     import com.flashartofwar.camo.display.CamoDisplay;
 
     public class BaseButton extends CamoDisplay
     {
-        private var buttonBehavior:ChangeStyleBehavior;
+        private var buttonBehavior:ButtonStyleBehavior;
 
         public function BaseButton(styleID:String, styleClass:String = null)
         {
@@ -20,7 +20,7 @@ package com.flashartofwar.camo.components
 
         private function addButtonBehavior():void
         {
-            buttonBehavior = new ChangeStyleBehavior(this);
+            buttonBehavior = new ButtonStyleBehavior(this);
         }
     }
 }

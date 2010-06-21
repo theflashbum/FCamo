@@ -1,10 +1,10 @@
 package com.flashartofwar.camo.components
 {
-    import com.flashartofwar.camo.behaviors.ChangeStyleBehavior;
+    import com.flashartofwar.camo.behaviors.ButtonStyleBehavior;
 
     public class LabelButton extends Label
     {
-        private var buttonBehavior:ChangeStyleBehavior;
+        private var buttonBehavior:ButtonStyleBehavior;
 
         public function LabelButton(styleID:String, styleClass:String = "LabelButton")
         {
@@ -19,7 +19,7 @@ package com.flashartofwar.camo.components
 
         private function addButtonBehavior():void
         {
-            buttonBehavior = new ChangeStyleBehavior(this);
+            buttonBehavior = new ButtonStyleBehavior(this);
         }
     }
 }

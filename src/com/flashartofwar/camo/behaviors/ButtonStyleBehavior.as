@@ -2,17 +2,16 @@ package com.flashartofwar.camo.behaviors
 {
     import flash.events.MouseEvent;
 
-    public class ChangeStyleBehavior extends AbstractBehavior
+    public class ButtonStyleBehavior extends AbstractBehavior
     {
 
         protected const OVER:String = "over";
         protected const DOWN:String = "down";
         protected var inside:Boolean = false;
-        
-        public function ChangeStyleBehavior(target:*, activate:Boolean = true)
+
+        public function ButtonStyleBehavior(target:*, activate:Boolean = true)
         {
             super(target, activate);
-
         }
 
         override protected function addEventListeners():void

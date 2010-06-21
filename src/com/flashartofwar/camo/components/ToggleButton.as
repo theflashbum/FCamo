@@ -1,11 +1,11 @@
 package com.flashartofwar.camo.components{
 
-    public class CheckBox extends BaseButton
+    public class ToggleButton extends BaseButton
     {
         private const SELECTED:String = "selected";
         private var _selected:Boolean;
 
-        public function CheckBox(styleID:String, styleClass:String = "CheckBox")
+        public function ToggleButton(styleID:String, styleClass:String = "ToggleButton")
         {
             super(styleID, styleClass);
         }
@@ -27,21 +27,16 @@ package com.flashartofwar.camo.components{
 
             if(_selected && !pseudoSelector)
             {
-                pseudoSelector = styleSuffix;
+                pseudoSelector = SELECTED;
             }
             else if (_selected && pseudoSelector)
             {
-                pseudoSelector += "_" + styleSuffix;
+                pseudoSelector += "_" + SELECTED;
             }
 
             styleBehavior.applyDefaultStyle(pseudoSelector);
         }
-        
-        protected function get styleSuffix():String
-        {
-            return _selected ? SELECTED : null;
-        }
-        
+
     }
 }
 
