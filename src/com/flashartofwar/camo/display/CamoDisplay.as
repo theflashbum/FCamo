@@ -353,9 +353,22 @@ package com.flashartofwar.camo.display
             return value > numChildren ? numChildren : value;
         }
 
+
+
+
         public function destroy():void
         {
             //TODO need to add logic for destroy
         }
+	    protected var _enabled:Boolean = true;
+	    public function get enabled():Boolean
+	    {
+		    return _enabled;
+	    }
+
+	    public function set enabled(value:Boolean):void
+	    {
+		    _enabled = value;
+	    }
     }
 }

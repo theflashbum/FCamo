@@ -5,8 +5,11 @@ package com.flashartofwar.camo.behaviors
     public class ButtonStyleBehavior extends AbstractBehavior
     {
 
-        protected const OVER:String = "over";
-        protected const DOWN:String = "down";
+        public static const OVER:String = "over";
+        public static const DOWN:String = "down";
+	    public static const SELECTED:String = "selected";
+	    public static const DISABLED:String = "disabled";
+
         protected var inside:Boolean = false;
 
         public function ButtonStyleBehavior(target:*, activate:Boolean = true)
@@ -51,8 +54,5 @@ package com.flashartofwar.camo.behaviors
             inside = false;
             _target.applyDefaultStyle()
         }
-
-
-
     }
 }

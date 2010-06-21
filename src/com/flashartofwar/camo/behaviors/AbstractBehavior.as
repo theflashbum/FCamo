@@ -24,9 +24,10 @@ package com.flashartofwar.camo.behaviors
             return _activate;
         }
         
-        public function set activate(activate:Boolean):void
+        public function set activate(value:Boolean):void
         {
-            _activate = activate;
+            if(activate == value) return;
+	        _activate = value;
             if (_activate)
             {
                 addEventListeners();
