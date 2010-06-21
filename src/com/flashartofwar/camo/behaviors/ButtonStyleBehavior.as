@@ -1,15 +1,12 @@
 package com.flashartofwar.camo.behaviors
 {
+    import com.flashartofwar.camo.enum.ComponentState;
+
     import flash.events.MouseEvent;
 
     public class ButtonStyleBehavior extends AbstractBehavior
     {
-
-        public static const OVER:String = "over";
-        public static const DOWN:String = "down";
-	    public static const SELECTED:String = "selected";
-	    public static const DISABLED:String = "disabled";
-
+        
         protected var inside:Boolean = false;
 
         public function ButtonStyleBehavior(target:*, activate:Boolean = true)
@@ -35,18 +32,18 @@ package com.flashartofwar.camo.behaviors
 
         protected function onMouseUp(event:MouseEvent):void
         {
-            _target.applyDefaultStyle(inside ? OVER : null);
+            _target.applyDefaultStyle(inside ? ComponentState.OVER : null);
         }
 
         protected function onMouseDown(event:MouseEvent):void
         {
-            _target.applyDefaultStyle(DOWN);
+            _target.applyDefaultStyle(ComponentState.DOWN);
         }
 
         protected function onRollOver(event:MouseEvent):void
         {
             inside = true;
-            _target.applyDefaultStyle(OVER);
+            _target.applyDefaultStyle(ComponentState.OVER);
         }
 
         protected function onRollOut(event:MouseEvent):void

@@ -1,7 +1,8 @@
 package com.flashartofwar.camo.components{
-	import com.flashartofwar.camo.behaviors.ButtonStyleBehavior;
+	
+    import com.flashartofwar.camo.enum.ComponentState;
 
-	public class ToggleButton extends LabelButton implements ISelectable
+    public class ToggleButton extends LabelButton implements ISelectable
     {
 		private var _selected:Boolean;
 
@@ -23,18 +24,18 @@ package com.flashartofwar.camo.components{
 
         override public function applyDefaultStyle(pseudoSelector:String = null):void
         {
-            if(pseudoSelector == ButtonStyleBehavior.DOWN)
+            if(pseudoSelector == ComponentState.DOWN)
             {
                 selected = !selected;
             }
 
             if(selected && !pseudoSelector)
             {
-                pseudoSelector = ButtonStyleBehavior.SELECTED;
+                pseudoSelector = ComponentState.SELECTED;
             }
             else if (_selected && pseudoSelector)
             {
-                pseudoSelector += "_" + ButtonStyleBehavior.SELECTED;
+                pseudoSelector += "_" + ComponentState.SELECTED;
             }
 
             super.applyDefaultStyle(pseudoSelector);
