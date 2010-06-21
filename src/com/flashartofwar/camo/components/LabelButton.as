@@ -1,8 +1,8 @@
 package com.flashartofwar.camo.components
 {
-    import com.flashartofwar.camo.behaviors.ButtonStyleBehavior;
+	import com.flashartofwar.camo.behaviors.ButtonStyleBehavior;
 
-    public class LabelButton extends Label
+	public class LabelButton extends Label
     {
         private var buttonBehavior:ButtonStyleBehavior;
 
@@ -21,5 +21,20 @@ package com.flashartofwar.camo.components
         {
             buttonBehavior = new ButtonStyleBehavior(this);
         }
-    }
+
+		override public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+
+		override public function set enabled(value:Boolean):void
+		{
+			if (_enabled == value)
+			{
+				return;
+			}
+			_enabled = value;
+			buttonBehavior.activate = _enabled;
+		}
+	}
 }

@@ -8,6 +8,7 @@ package com.flashartofwar.camo.behaviors
         public static const OVER:String = "over";
         public static const DOWN:String = "down";
 	    public static const SELECTED:String = "selected";
+	    public static const DISABLED:String = "disabled";
 
         protected var inside:Boolean = false;
 
