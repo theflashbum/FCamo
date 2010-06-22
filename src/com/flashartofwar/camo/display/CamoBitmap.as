@@ -1,5 +1,6 @@
 package com.flashartofwar.camo.display
 {
+    import com.flashartofwar.camo.events.BitmapCacheManagerEvent;
     import com.flashartofwar.camo.managers.BitmapCacheManager;
     import com.flashartofwar.camo.managers.SingletonManager;
 
@@ -48,12 +49,13 @@ package com.flashartofwar.camo.display
                 if (cachedBitmaps.hasBitmap(url) && !cachedBitmaps.isLoading(url))
                 {
                     // Bitmap is cached and is already loaded
+
                     bitmapData = cachedBitmaps.getBitmap(url).bitmapData.clone();
                 }
                 else if (cachedBitmaps.hasBitmap(url) && cachedBitmaps.isLoading(url))
                 {
                     // Bitmap is cached but not loaded.
-                    addChangeListener(cachedBitmaps.getBitmap(url));
+                    addChangeListener(cachedBitmaps);
                     addRemoveFromCacheListener(cachedBitmaps);
                     // Add event listener to BitmapCache for an update matching the url id.
                     // also need to listen to a remove event in case it is waiting for a load.
@@ -65,6 +67,8 @@ package com.flashartofwar.camo.display
                     cachedBitmaps.addBitmap(url, new Bitmap());
                     cachedBitmaps.flagAsLoading(url);
                     loader = new Loader();
+
+                                        
                     addLoadListeners(loader.contentLoaderInfo);
                     loader.load(new URLRequest(url));
                 }
@@ -84,27 +88,25 @@ package com.flashartofwar.camo.display
             //TODO need to add logic when a bitmap we want has been removed
         }
 
-        private function addChangeListener(target:Bitmap):void
+        private function addChangeListener(target:BitmapCacheManager):void
         {
-            if(target is CamoBitmap)
-            {
-                target.addEventListener(Event.CHANGE, onChange);
-            }
+            target.addEventListener(BitmapCacheManagerEvent.CHANGE, onChange);
         }
 
-        private function removeChangeListener(target:Bitmap):void
+        private function removeChangeListener(target:BitmapCacheManager):void
         {
-            if(target is CamoBitmap)
-            {
-                target.removeEventListener(Event.CHANGE, onChange);
-            }
+            target.removeEventListener(BitmapCacheManagerEvent.CHANGE, onChange);
         }
 
-        private function onChange(event:Event):void
+        private function onChange(event:BitmapCacheManagerEvent):void
         {
-            var bitmap:Bitmap = event.target as Bitmap;
-            removeChangeListener(bitmap);
-            bitmapData = bitmap.bitmapData.clone();
+            if(event.id == id)
+            {
+                removeChangeListener(cachedBitmaps);
+                bitmapData = cachedBitmaps.getBitmap(id).bitmapData.clone();
+                dispatchEvent(new Event(Event.CHANGE, true, true))
+            }
+
         }
 
         /**
@@ -113,7 +115,7 @@ package com.flashartofwar.camo.display
          */
         protected function addLoadListeners(target:LoaderInfo):void
         {
-            target.addEventListener(Event.COMPLETE, onBGImageLoad);
+            target.addEventListener(Event.COMPLETE, onLoad);
             target.addEventListener(IOErrorEvent.IO_ERROR, ioError);
         }
 
@@ -123,7 +125,7 @@ package com.flashartofwar.camo.display
          */
         protected function removeLoadListeners(target:LoaderInfo):void
         {
-            target.removeEventListener(Event.COMPLETE, onBGImageLoad);
+            target.removeEventListener(Event.COMPLETE, onLoad);
             target.removeEventListener(IOErrorEvent.IO_ERROR, ioError);
         }
 
@@ -144,16 +146,17 @@ package com.flashartofwar.camo.display
          * the 9 slice values to allow undistorted stretching of the supplied
          * BG Image.</p>
          */
-        protected function onBGImageLoad(e:Event):void
+        protected function onLoad(e:Event):void
         {
-
             var info:LoaderInfo = e.target as LoaderInfo;
             var loader:Loader = info.loader;
             removeLoadListeners(loader.contentLoaderInfo);
 
-            bitmapData = Bitmap(loader.content).bitmapData;
-            cachedBitmaps.getBitmap(id).bitmapData = bitmapData.clone();
+            addChangeListener(cachedBitmaps);
             
+            cachedBitmaps.flagAsLoaded(id);
+            cachedBitmaps.updateBitmap(id, Bitmap(loader.content));
+
             loader = null;
         }
 

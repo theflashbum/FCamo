@@ -270,7 +270,9 @@ package com.flashartofwar.camo.display
 
         protected function onBackgroundImageBitmapChange(event:Event):void
         {
+            event.stopPropagation();
             sampleBackground(event.target as Bitmap);
+            invalidate();
         }
 
         /**
