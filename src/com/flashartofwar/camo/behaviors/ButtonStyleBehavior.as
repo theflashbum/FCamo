@@ -20,6 +20,7 @@ package com.flashartofwar.camo.behaviors
             _target.addEventListener(MouseEvent.ROLL_OUT, onRollOut);
             _target.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
             _target.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+            _target.addEventListener(MouseEvent.CLICK, onMouseClick);
         }
 
         override protected function removeEventListeners():void
@@ -28,6 +29,7 @@ package com.flashartofwar.camo.behaviors
             _target.removeEventListener(MouseEvent.ROLL_OUT, onRollOut);
             _target.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
             _target.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+            _target.removeEventListener(MouseEvent.CLICK, onMouseClick);
         }
 
         protected function onMouseUp(event:MouseEvent):void
@@ -51,5 +53,11 @@ package com.flashartofwar.camo.behaviors
             inside = false;
             _target.applyDefaultStyle()
         }
+
+	    protected function onMouseClick(event:MouseEvent):void
+        {
+            _target.applyDefaultStyle(ComponentState.SELECTED)
+        }
+
     }
 }

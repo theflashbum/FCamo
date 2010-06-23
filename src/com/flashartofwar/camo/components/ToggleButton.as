@@ -18,26 +18,37 @@ package com.flashartofwar.camo.components{
 
         public function set selected(value:Boolean):void
         {
-           if(selected == value) return;
+           if(_selected == value) return;
 			_selected = value;
         }
 
         override public function applyDefaultStyle(pseudoSelector:String = null):void
         {
-            if(pseudoSelector == ComponentState.DOWN)
+	        //toggle
+            if(pseudoSelector == ComponentState.SELECTED)
             {
                 selected = !selected;
+	            if(!selected)
+	            {
+		            //moving to deselected initiates a state change back to default (AKA, "toggling")
+		            pseudoSelector = ComponentState.DEFAULT;
+	            }
             }
 
-            if(selected && !pseudoSelector)
+	        //handle selected and over/down/up
+            if (selected && pseudoSelector && pseudoSelector != ComponentState.SELECTED)
             {
-                pseudoSelector = ComponentState.SELECTED;
-            }
-            else if (_selected && pseudoSelector)
-            {
-                pseudoSelector += "_" + ComponentState.SELECTED;
+                pseudoSelector = ComponentState.SELECTED + "_" + pseudoSelector;
             }
 
+	        //handle selected and out
+	        //changing from selected_over->null would undesirably clear the selected style
+	        if(selected && !pseudoSelector)
+	        {
+		        pseudoSelector = ComponentState.SELECTED;
+	        }
+
+	        trace(this.name,  pseudoSelector);
             super.applyDefaultStyle(pseudoSelector);
         }
 
