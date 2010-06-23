@@ -17,6 +17,9 @@
 /.as3_classpath
 /com.adobe.flexbuilder.project.prefs
 /org.eclipse.core.resources.prefs
+
+*~
+.*.swp
  
 Icon
 Thumbs.db
