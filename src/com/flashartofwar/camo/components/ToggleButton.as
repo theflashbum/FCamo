@@ -48,7 +48,6 @@ package com.flashartofwar.camo.components{
 		        pseudoSelector = ComponentState.SELECTED;
 	        }
 
-	        trace(this.name,  pseudoSelector);
             super.applyDefaultStyle(pseudoSelector);
         }
 
