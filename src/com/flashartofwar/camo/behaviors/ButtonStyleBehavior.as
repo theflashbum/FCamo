@@ -59,5 +59,11 @@ package com.flashartofwar.camo.behaviors
             _target.applyDefaultStyle(ComponentState.SELECTED)
         }
 
+	    override public function destroy():void
+	    {
+		    super.destroy();
+		    removeEventListeners();
+		    _target = null;
+	    }
     }
 }

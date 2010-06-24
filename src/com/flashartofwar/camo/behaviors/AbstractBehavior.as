@@ -1,8 +1,6 @@
 package com.flashartofwar.camo.behaviors
 {
-    import flash.events.EventDispatcher;
-
-    public class AbstractBehavior extends EventDispatcher
+	public class AbstractBehavior
     {
 
         protected var _target:*;
@@ -47,6 +45,10 @@ package com.flashartofwar.camo.behaviors
         {
 
         }
+	    
+		public function destroy():void
+		{
 
+		}
     }
 }

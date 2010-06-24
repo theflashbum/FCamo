@@ -68,7 +68,7 @@ package com.flashartofwar.camo.behaviors
         protected function addStageListeners():void
         {
             _target.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage, false, 0, true);
-            _target,addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage, false, 0, true);
+            _target.addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage, false, 0, true);
         }
     }
 }

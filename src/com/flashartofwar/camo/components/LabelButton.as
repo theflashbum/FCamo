@@ -1,12 +1,12 @@
 package com.flashartofwar.camo.components
 {
+	import com.flashartofwar.camo.behaviors.AbstractBehavior;
 	import com.flashartofwar.camo.behaviors.ButtonStyleBehavior;
 
 	public class LabelButton extends Label
     {
-        private var buttonBehavior:ButtonStyleBehavior;
 
-        public function LabelButton(styleID:String, styleClass:String = "LabelButton")
+		public function LabelButton(styleID:String, styleClass:String = "LabelButton")
         {
             super(styleID, styleClass);
         }
@@ -19,7 +19,7 @@ package com.flashartofwar.camo.components
 
         private function addButtonBehavior():void
         {
-            buttonBehavior = new ButtonStyleBehavior(this);
+	        addBehavior(ButtonStyleBehavior);
         }
 
 		override public function get enabled():Boolean
@@ -34,7 +34,11 @@ package com.flashartofwar.camo.components
 				return;
 			}
 			_enabled = value;
-			buttonBehavior.activate = _enabled;
+			
+			for each(var behavior:AbstractBehavior in behaviors)
+			{
+				behavior.activate = _enabled;
+			}
 		}
 	}
 }
