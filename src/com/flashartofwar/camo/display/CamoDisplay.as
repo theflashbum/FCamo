@@ -1,31 +1,30 @@
 package com.flashartofwar.camo.display
 {
-    import com.flashartofwar.camo.display.CamoBitmap;
-    import com.flashartofwar.camo.display.CamoBitmap;
-    import com.flashartofwar.camo.enum.ComponentState;
-    import com.flashartofwar.camo.events.StyleChangedEvent;
-    import com.flashartofwar.camo.managers.SingletonManager;
-    import com.flashartofwar.camo.renderers.AdvancedBoxModelRenderer;
-    import com.flashartofwar.fboxmodel.FBoxModel;
-    import com.flashartofwar.fboxmodel.renderers.BoxModelRenderer;
-    import com.flashartofwar.fcss.applicators.IApplicator;
-    import com.flashartofwar.fcss.applicators.StyleApplicator;
-    import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
-    import com.flashartofwar.fcss.styles.IStyle;
-    import com.flashartofwar.fcss.stylesheets.IStyleSheet;
-    import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
-    import com.flashartofwar.fcss.typer.splitTypeFromSource;
-    import com.flashartofwar.fcss.validators.validateAlign;
-    import com.flashartofwar.fcss.validators.validateVerticalAlign;
+	import com.flashartofwar.camo.behaviors.AbstractBehavior;
+	import com.flashartofwar.camo.enum.ComponentState;
+	import com.flashartofwar.camo.events.StyleChangedEvent;
+	import com.flashartofwar.camo.managers.SingletonManager;
+	import com.flashartofwar.camo.renderers.AdvancedBoxModelRenderer;
+	import com.flashartofwar.fboxmodel.FBoxModel;
+	import com.flashartofwar.fboxmodel.renderers.BoxModelRenderer;
+	import com.flashartofwar.fcss.applicators.IApplicator;
+	import com.flashartofwar.fcss.applicators.StyleApplicator;
+	import com.flashartofwar.fcss.behaviors.ApplyStyleBehavior;
+	import com.flashartofwar.fcss.styles.IStyle;
+	import com.flashartofwar.fcss.stylesheets.IStyleSheet;
+	import com.flashartofwar.fcss.stylesheets.StyleSheetCollection;
+	import com.flashartofwar.fcss.typer.splitTypeFromSource;
+	import com.flashartofwar.fcss.validators.validateAlign;
+	import com.flashartofwar.fcss.validators.validateVerticalAlign;
 
-    import flash.display.Bitmap;
-    import flash.display.BitmapData;
-    import flash.display.DisplayObject;
-    import flash.display.Shape;
-    import flash.display.Sprite;
-    import flash.events.Event;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.display.Shape;
+	import flash.display.Sprite;
+	import flash.events.Event;
 
-    public class CamoDisplay extends FBoxModel
+	public class CamoDisplay extends FBoxModel
     {
 
         protected var maskShape:Shape = new Shape();
@@ -371,6 +370,21 @@ package com.flashartofwar.camo.display
 	    public function set enabled(value:Boolean):void
 	    {
 		    _enabled = value;
+	    }
+
+	    protected var behaviors:Object = {};
+
+	    public function addBehavior(value:Class):void
+	    {
+		    var behavior:AbstractBehavior = new value(this);
+		    behaviors[value] = behavior;
+	    }
+
+	    public function removeBehavior(value:Class):void
+	    {
+		    var behavior:AbstractBehavior = behaviors[value];
+		    behavior.destroy();
+		    behaviors[value] = null;
 	    }
     }
 }
