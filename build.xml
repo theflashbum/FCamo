@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="BitmapSampler" basedir="." default="full-build">
+<project name="FlashCamouflage" basedir="." default="full-build">
     
     <!-- identify properties file -->
     <property file="build.properties" />
@@ -43,6 +43,8 @@
     <target name="full-build" depends="test,compile" description="Runs tests, compiles project, and optionally runs it.">
     </target>
 
-    <target name="deploy-lib" description="Prepares swf lib and moves it to deploy directory" depends="compile-swc.deploy"/>
-    
+    <target name="deploy-swc" depends="compile">
+        <move file="${bin.loc}/${deploy.name.versioned}.swc" tofile="${lib.deploy.dir}/${project.name.versioned}.swc"/>
+    </target>
+
 </project>

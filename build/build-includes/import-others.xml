@@ -2,9 +2,9 @@
 <project name="import-others" basedir="." default="">
     
     <target name="compile-parts">
-        <ant dir="${fcss.loc}" inheritAll="false" target="compile" useNativeBaseDir="true"/>
-        <ant dir="${fboxmodel.loc}" inheritAll="false" target="compile" useNativeBaseDir="true"/>
-        <ant dir="${fspritesheets.loc}" inheritAll="false" target="compile" useNativeBaseDir="true"/>
+        <ant dir="${fcss.loc}" inheritAll="false" target="compile"/>
+        <ant dir="${fboxmodel.loc}" inheritAll="false" target="compile"/>
+        <ant dir="${fspritesheets.loc}" inheritAll="false" target="compile"/>
     </target>
 
     <target name="copy-parts-in" depends="compile-parts">

@@ -64,7 +64,9 @@
         </java>
     </target>
 
-    <target name="deploy" depends="optimize">
+    <target name="deploy-swf-lib" depends="optimize">
         <move file="${bin.loc}/${deploy.name.versioned}.swf" tofile="${lib.deploy.dir}/${project.name.versioned}.swf"/>
     </target>
+
+ 
 </project>
