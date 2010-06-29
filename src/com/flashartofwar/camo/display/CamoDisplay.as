@@ -35,10 +35,10 @@ package com.flashartofwar.camo.display
         protected var zIndex:Number;
         protected var advancedBoxModelRenderer:AdvancedBoxModelRenderer;
         protected var styleBehavior:CamoApplyStyleBehavior;
-        protected var styleID:String = "";
+        protected var _styleID:String = "";
         protected var styleSheetCollection:IStyleSheet = SingletonManager.getClassReference(StyleSheetCollection);
         protected var applicator:IApplicator = SingletonManager.getClassReference(StyleApplicator);
-        protected var styleClass:String;
+        protected var _styleClass:String;
 
         /**
          *
@@ -47,8 +47,8 @@ package com.flashartofwar.camo.display
         public function CamoDisplay(styleID:String, styleClass:String = "CamoDisplay")
         {
 
-            this.styleID = styleID;
-            this.styleClass = styleClass;
+            _styleID = styleID;
+            _styleClass = styleClass;
 
             super();
         }
@@ -134,23 +134,37 @@ package com.flashartofwar.camo.display
             return styleBehavior.className;
         }
 
-        public function set className(value:String):void
-        {
-            styleBehavior.styleClass = value;
-            invalidate();
-        }
+
 
         public function get id():String
         {
             return styleBehavior.id;
         }
 
-        public function set id(value:String):void
+        /**
+         * Allows you to change the id of the Style Behavior. This will refresh the
+         * styles on the component on the next render.
+         *
+         * @param value
+         */
+        public function set styleID(value:String):void
         {
             styleBehavior.styleID = value;
             invalidate();
         }
 
+        /**
+         * Allows you to change the styelClass of the Style Behavior. This will
+         * refresh the styles on the component on the next render.
+         *
+         * @param value
+         */
+        public function set styleClass(value:String):void
+        {
+            styleBehavior.styleClass = value;
+            invalidate();
+        }
+        
         public function get defaultStyleNames():Array
         {
             return styleBehavior.defaultStyleNames;
