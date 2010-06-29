@@ -64,7 +64,7 @@ package com.flashartofwar.camo.display
 
         protected function addStyleBehavior():void
         {
-            styleBehavior = new CamoApplyStyleBehavior(this, applicator, styleSheetCollection, styleID, styleClass);
+            styleBehavior = new CamoApplyStyleBehavior(this, applicator, styleSheetCollection, _styleID, _styleClass);
         }
 
         /**
