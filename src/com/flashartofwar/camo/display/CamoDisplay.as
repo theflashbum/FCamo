@@ -1,7 +1,8 @@
 package com.flashartofwar.camo.display
 {
 	import com.flashartofwar.camo.behaviors.AbstractBehavior;
-	import com.flashartofwar.camo.enum.ComponentState;
+    import com.flashartofwar.camo.behaviors.CamoApplyStyleBehavior;
+    import com.flashartofwar.camo.enum.ComponentState;
 	import com.flashartofwar.camo.events.StyleChangedEvent;
 	import com.flashartofwar.camo.managers.SingletonManager;
 	import com.flashartofwar.camo.renderers.AdvancedBoxModelRenderer;
@@ -33,7 +34,7 @@ package com.flashartofwar.camo.display
         protected var _align:String;
         protected var zIndex:Number;
         protected var advancedBoxModelRenderer:AdvancedBoxModelRenderer;
-        protected var styleBehavior:ApplyStyleBehavior;
+        protected var styleBehavior:CamoApplyStyleBehavior;
         protected var styleID:String = "";
         protected var styleSheetCollection:IStyleSheet = SingletonManager.getClassReference(StyleSheetCollection);
         protected var applicator:IApplicator = SingletonManager.getClassReference(StyleApplicator);
@@ -63,7 +64,7 @@ package com.flashartofwar.camo.display
 
         protected function addStyleBehavior():void
         {
-            styleBehavior = new ApplyStyleBehavior(this, applicator, styleSheetCollection, styleID, styleClass);
+            styleBehavior = new CamoApplyStyleBehavior(this, applicator, styleSheetCollection, styleID, styleClass);
         }
 
         /**
@@ -133,9 +134,21 @@ package com.flashartofwar.camo.display
             return styleBehavior.className;
         }
 
+        public function set className(value:String):void
+        {
+            styleBehavior.styleClass = value;
+            invalidate();
+        }
+
         public function get id():String
         {
             return styleBehavior.id;
+        }
+
+        public function set id(value:String):void
+        {
+            styleBehavior.styleID = value;
+            invalidate();
         }
 
         public function get defaultStyleNames():Array
@@ -354,14 +367,24 @@ package com.flashartofwar.camo.display
             return value > numChildren ? numChildren : value;
         }
 
-
+        override protected function draw():void
+        {
+            if(styleBehavior.refreshNeeded)
+            {
+                styleBehavior.refresh();
+            }
+            super.draw();
+        }
 
 
         public function destroy():void
         {
             //TODO need to add logic for destroy
         }
+
+        //TODO this logic should be moved into the button?
 	    protected var _enabled:Boolean = true;
+        
 	    public function get enabled():Boolean
 	    {
 		    return _enabled;
