@@ -16,8 +16,8 @@ package com.flashartofwar.camo.display
     {
 
         public static var cachedBitmaps:BitmapCacheManager = SingletonManager.getClassReference(BitmapCacheManager);
-        private var loader:Loader;
-        protected var id:String;
+        protected var loader:Loader;
+        protected var _id:String;
         
         public function CamoBitmap(bitmapData:BitmapData = null, pixelSnapping:String = "auto", smoothing:Boolean = false)
         {
@@ -39,13 +39,13 @@ package com.flashartofwar.camo.display
 
         public function load(url:String):void
         {
-            if(url == id)
+            if(url == _id)
             {
                 return;
             }
             else
             {
-                id = url;
+                _id = url;
                 if (cachedBitmaps.hasBitmap(url) && !cachedBitmaps.isLoading(url))
                 {
                     // Bitmap is cached and is already loaded
@@ -166,6 +166,11 @@ package com.flashartofwar.camo.display
             {
                 cachedBitmaps.removeEventListener(Event.REMOVED, onRemovedFromCache);
             }
+        }
+
+        public function get id():String
+        {
+            return _id;
         }
     }
 }

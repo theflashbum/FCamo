@@ -153,6 +153,11 @@ package com.flashartofwar.camo.display
             invalidate();
         }
 
+        public function get styleID():String
+        {
+            return _styleID;
+        }
+        
         /**
          * Allows you to change the styelClass of the Style Behavior. This will
          * refresh the styles on the component on the next render.
@@ -163,6 +168,11 @@ package com.flashartofwar.camo.display
         {
             styleBehavior.styleClass = value;
             invalidate();
+        }
+
+        public function get styleClass():String
+        {
+            return _styleClass;
         }
         
         public function get defaultStyleNames():Array
