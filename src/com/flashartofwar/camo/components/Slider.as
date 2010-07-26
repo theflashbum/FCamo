@@ -32,11 +32,8 @@ package com.flashartofwar.camo.components
 
     import com.flashartofwar.camo.display.CamoDisplay;
 
-    import flash.display.DisplayObject;
     import flash.display.Sprite;
     import flash.events.Event;
-    import flash.filters.DropShadowFilter;
-    import flash.geom.Rectangle;
 
     public class Slider extends CamoDisplay implements ISlider
     {
@@ -58,7 +55,6 @@ package com.flashartofwar.camo.components
 
         override public function set height(value:Number):void
         {
-            trace("Slider Height", value);
             super.height = value;
             if (sliderBehavior) sliderBehavior.refresh();
         }
@@ -90,7 +86,7 @@ package com.flashartofwar.camo.components
             addChild(_dragger);
         }
 
-        private function onValueChange(event:Event):void
+        protected function onValueChange(event:Event):void
         {
             dispatchEvent(event);
         }

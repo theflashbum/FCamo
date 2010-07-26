@@ -94,6 +94,11 @@ package com.flashartofwar.camo.components
             dispatchEvent(event.clone());
         }
 
+        public function set bitmap(value:Bitmap):void
+        {
+            displayBitmap(value);
+        }
+
         protected function displayBitmap(image:Bitmap):void
         {
             this.image = image;
@@ -104,8 +109,6 @@ package com.flashartofwar.camo.components
                 _height = image.height;
 
             resizeImage(image);
-
-            //image.alpha = 0;
 
             addChild(image);
         }
