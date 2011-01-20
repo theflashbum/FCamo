@@ -43,7 +43,7 @@ package com.flashartofwar.camo.behaviors
         public static const DRAGGER:String = "dragger";
         public static const TRACK:String = "track";
 
-        private var target:Sprite;
+        protected var target:Sprite;
         protected var _backClick:Boolean = true;
         protected var _value:Number = 0;
         protected var _max:Number = 100;
@@ -66,6 +66,16 @@ package com.flashartofwar.camo.behaviors
                 throw new Error("Target must implement ISlider and be a Sprite")
             }
             init();
+        }
+
+        public function set draggerX(value:Number):void
+        {
+            target["draggerX"] = value;
+        }
+
+        public function get draggerX():Number
+        {
+            return target["draggerX"];
         }
 
         /**
@@ -120,7 +130,7 @@ package com.flashartofwar.camo.behaviors
             if (_orientation == HORIZONTAL)
             {
                 range = target.width - dragger.width;
-                dragger.x = (_value - _min) / (_max - _min) * range;
+                draggerX = (_value - _min) / (_max - _min) * range;
             }
             else
             {
@@ -141,15 +151,15 @@ package com.flashartofwar.camo.behaviors
         {
             if (_orientation == HORIZONTAL)
             {
-                dragger.x = target.mouseX - dragger.width / 2;
-                dragger.x = Math.max(dragger.x, 0);
-                dragger.x = Math.min(dragger.x, target.width - dragger.width);
+                draggerX = target.mouseX - dragger.width / 2;
+                draggerX = Math.max(draggerX, 0);
+                draggerX = Math.min(draggerX, target.width - dragger.width);
                 if(ticks > 0)
                 {
                     //this next line has a hilarious effect.
-                    dragger.x = nearestTick(target.width - dragger.width, ticks, dragger.x);
+                    draggerX = nearestTick(target.width - dragger.width, ticks, draggerX);
                 }
-                _value = dragger.x / (target.width - dragger.width) * (_max - _min) + _min;
+                _value = draggerX / (target.width - dragger.width) * (_max - _min) + _min;
             }
             else
             {
@@ -195,8 +205,8 @@ package com.flashartofwar.camo.behaviors
                 if (_orientation == HORIZONTAL)
                 {
                     //this next line has a hilarious effect.
-                    dragger.x = nearestTick(target.width - dragger.width, ticks, dragger.x);
-                    _value = dragger.x / (target.width - dragger.width) * (_max - _min) + _min;
+                    draggerX = nearestTick(target.width - dragger.width, ticks, draggerX);
+                    _value = draggerX / (target.width - dragger.width) * (_max - _min) + _min;
                 }
                 else
                 {
@@ -220,7 +230,7 @@ package com.flashartofwar.camo.behaviors
             var oldValue:Number = _value;
             if (_orientation == HORIZONTAL)
             {
-                _value = dragger.x / (target.width - dragger.width) * (_max - _min) + _min;
+                _value = draggerX / (target.width - dragger.width) * (_max - _min) + _min;
             }
             else
             {

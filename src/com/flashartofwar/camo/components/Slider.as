@@ -74,6 +74,10 @@ package com.flashartofwar.camo.components
         {
             super.init();
 
+            createBehavior();
+        }
+
+        protected function createBehavior():void {
             sliderBehavior = new SliderBehavior(this);
             sliderBehavior.addEventListener(Event.CHANGE, onValueChange);
         }
@@ -109,6 +113,16 @@ package com.flashartofwar.camo.components
         public function get dragger():Sprite
         {
             return _dragger;
+        }
+
+        public function set draggerX(value:Number):void
+        {
+            _dragger.x = value;
+        }
+
+        public function get draggerX():Number
+        {
+            return _dragger.x
         }
     }
 }

@@ -58,8 +58,9 @@ package com.flashartofwar.camo.display
             //TODO this needs to be thought out better, maskShape should only exist when needed?
             $addChild(maskShape);
             super.init();
-            addChildren();
             addStyleBehavior();
+            addChildren();
+
         }
 
         protected function addStyleBehavior():void
