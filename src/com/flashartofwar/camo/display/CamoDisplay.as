@@ -92,10 +92,10 @@ package com.flashartofwar.camo.display
          * @param w The width of the component.
          * @param h The height of the component.
          */
-        public function setSize(w:Number, h:Number):void
+        public function setSize(w:Number, h:Number, boxSizing:Boolean = true):void
         {
-            width = w;
-            height = h;
+            width = boxSizing ? w : w - (marginLeft + marginRight + paddingLeft + paddingRight + borderLeft + borderRight);
+            height = boxSizing ? h : h - (marginTop + marginBottom + paddingTop + paddingBottom + borderTop + borderBottom);
         }
 
         /**

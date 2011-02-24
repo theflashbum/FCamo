@@ -24,7 +24,7 @@ package com.flashartofwar.camo.renderers
         {
             _overflow = value;
             // Parse Overflow
-            switch (value)
+                switch (value)
             {
                 case CSSProperties.HIDDEN:
                 {
